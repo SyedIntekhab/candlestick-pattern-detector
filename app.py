@@ -9,24 +9,24 @@ import time
 
 def fetch_ohlc_data(symbol, interval='1h', limit=100):
     """
-    Fetch OHLC data from Binance API.
-    :param symbol: The trading pair symbol (e.g., BTCUSDT).
-    :param interval: Timeframe for the candlesticks (default: 1 hour).
-    :param limit: Number of candlesticks to fetch (default: 100).
-    :return: Pandas DataFrame containing OHLC data.
+    Fetch OHLC data from Binance API using a proxy to bypass restrictions.
     """
     url = f"https://api.binance.com/api/v3/klines"
     params = {"symbol": symbol, "interval": interval, "limit": limit}
+    proxies = {
+        "http": "http://your_proxy_ip:port",
+        "https": "http://your_proxy_ip:port",
+    }  # Replace with a working proxy
+
     try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()  # Raise an error if the response status is not 200
+        response = requests.get(url, params=params, proxies=proxies)
+        response.raise_for_status()
 
         data = response.json()
-        if not data or not isinstance(data, list):  # Check if the response is empty or invalid
+        if not data or not isinstance(data, list):
             st.error("Binance API returned an empty or invalid response.")
-            return pd.DataFrame()  # Return an empty DataFrame to prevent further errors
+            return pd.DataFrame()
 
-        # Convert the data into a DataFrame
         ohlc_data = [
             {
                 "open_time": x[0],
@@ -42,7 +42,7 @@ def fetch_ohlc_data(symbol, interval='1h', limit=100):
 
     except requests.exceptions.RequestException as e:
         st.error(f"Failed to fetch data from Binance API: {e}")
-        return pd.DataFrame()  # Return an empty DataFrame in case of an error
+        return pd.DataFrame()
 
 
 # Streamlit App
