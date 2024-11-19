@@ -5,6 +5,11 @@ import mplfinance as mpf
 from io import BytesIO
 from pattern_detection import detect_hammer, detect_three_white_soldiers
 import time
+import os
+
+# Configure Streamlit to use the correct host and port
+os.environ["STREAMLIT_SERVER_PORT"] = os.getenv("PORT", "8080")
+os.environ["STREAMLIT_SERVER_ADDRESS"] = "0.0.0.0"
 
 
 def fetch_ohlc_data(symbol, interval='1h', limit=100):
