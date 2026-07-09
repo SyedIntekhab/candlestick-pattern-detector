@@ -1,0 +1,616 @@
+/* ==========================================================================
+   EdCircles — shared styles
+   ========================================================================== */
+
+:root {
+  --bg-base: #FBF6EC;
+  --bg-gradient: radial-gradient(circle at 50% 45%, #FFFDF7 0%, #F3EAD6 70%, #ECE0C8 100%);
+  --ink: #5B4B6B;
+
+  --library-fill: #A8C4A2;
+  --library-text: #3E5A3A;
+  --library-card-1: #D3E3CD;
+  --library-card-2: #C3D7BC;
+  --library-card-3: #B5CBAC;
+
+  --staffroom-fill: #F0D9A0;
+  --staffroom-text: #7A5E20;
+  --staffroom-card-1: #F4E1B0;
+  --staffroom-card-2: #EAD292;
+  --staffroom-card-3: #E8CB88;
+
+  --classroom-fill: #E8B4A0;
+  --classroom-text: #8A4530;
+  --classroom-card-1: #F3D6CA;
+  --classroom-card-2: #EEC7B7;
+  --classroom-card-3: #E9BCA9;
+
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, .wordmark {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+img, svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   Site header (used on standalone role, item, and career-counselling pages)
+   ========================================================================== */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  padding: 20px 24px;
+}
+
+.site-header .wordmark {
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   Landing page / pie gate
+   ========================================================================== */
+
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-gradient);
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.pie-wrap {
+  position: relative;
+  width: min(420px, 82vw);
+  height: min(420px, 82vw);
+  transition: opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1), transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.pie-wrap.pie-hidden {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+.pie {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(91, 75, 107, 0.18);
+}
+
+.wedge {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%);
+  transform-origin: 50% 50%;
+  display: flex;
+  border: none;
+  padding: 0;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.wedge:hover,
+.wedge:focus-visible {
+  transform: scale(1.035);
+  filter: brightness(1.06);
+  z-index: 2;
+}
+
+.wedge-label {
+  position: absolute;
+  font-family: var(--font-sans);
+  text-align: center;
+  line-height: 1.25;
+}
+
+.wedge-label strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+}
+
+.wedge-label span {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+/* wedge 1: top (Library / Whole-School Training) 300deg -> 60deg (through 0) */
+.wedge-library {
+  clip-path: polygon(50% 50%, 21.13% 0%, 78.87% 0%);
+  background: var(--library-fill);
+  color: var(--library-text);
+}
+.wedge-library .wedge-label {
+  top: 14%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+/* wedge 2: bottom-right (Staffroom / Teacher Training) 60deg -> 180deg */
+.wedge-staffroom {
+  clip-path: polygon(50% 50%, 78.87% 0%, 100% 50%, 78.87% 100%, 50% 100%);
+  background: var(--staffroom-fill);
+  color: var(--staffroom-text);
+}
+.wedge-staffroom .wedge-label {
+  top: 50%;
+  right: 8%;
+  transform: translate(0, -50%);
+  text-align: right;
+}
+
+/* wedge 3: bottom-left (Classroom / Student Support) 180deg -> 300deg */
+.wedge-classroom {
+  clip-path: polygon(50% 50%, 50% 100%, 21.13% 100%, 0% 50%, 21.13% 0%);
+  background: var(--classroom-fill);
+  color: var(--classroom-text);
+}
+.wedge-classroom .wedge-label {
+  top: 50%;
+  left: 8%;
+  transform: translate(0, -50%);
+  text-align: left;
+}
+
+.pie-disc {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: #FFFDF7;
+  box-shadow: 0 6px 18px rgba(91, 75, 107, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.pie-disc span {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   Full-screen role panels (zoom-in target on the landing page)
+   ========================================================================== */
+
+.role-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow-y: auto;
+  opacity: 0;
+  transform: scale(0.4);
+  transform-origin: 50% 50%;
+  transition: opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1), transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+}
+
+.role-panel.panel-open {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.back-home {
+  position: sticky;
+  top: 20px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 20px 0 0 20px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  font-size: 0.9rem;
+  color: var(--ink);
+  box-shadow: 0 2px 8px rgba(91, 75, 107, 0.12);
+}
+
+.back-home:hover {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* ==========================================================================
+   Role hero + bento grid
+   ========================================================================== */
+
+.role-hero {
+  padding: 8px 24px 32px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.role-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  margin-bottom: 12px;
+}
+
+.role-hero p {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.role-library { background: var(--bg-base); color: var(--library-text); }
+.role-staffroom { background: var(--bg-base); color: var(--staffroom-text); }
+.role-classroom { background: var(--bg-base); color: var(--classroom-text); }
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: dense;
+  gap: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+}
+
+.bento-card {
+  grid-column: span 1;
+  border-radius: 18px;
+  padding: 22px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 160px;
+  border: none;
+  text-align: left;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 4px 10px rgba(91, 75, 107, 0.08);
+}
+
+.bento-card:hover,
+.bento-card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(91, 75, 107, 0.16);
+}
+
+.bento-card.priority {
+  grid-column: span 2;
+  justify-content: center;
+  padding: 30px 32px;
+}
+
+.bento-card.priority .bento-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.bento-card.priority h3 {
+  font-size: 1.35rem;
+}
+
+.bento-card.priority p {
+  font-size: 1rem;
+}
+
+.bento-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.bento-card h3 {
+  font-size: 1.15rem;
+}
+
+.bento-card p {
+  font-size: 0.92rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.card-library { color: var(--library-text); }
+.card-staffroom { color: var(--staffroom-text); }
+.card-classroom { color: var(--classroom-text); }
+
+@media (max-width: 760px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-card.priority {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}
+
+/* ==========================================================================
+   Item / placeholder detail pages
+   ========================================================================== */
+
+.item-header {
+  padding: 60px 24px 48px;
+  text-align: center;
+}
+
+.item-header h1 {
+  font-size: clamp(1.7rem, 5vw, 2.3rem);
+  margin-bottom: 6px;
+}
+
+.item-header .item-eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.item-body {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+  text-align: left;
+}
+
+.item-body p {
+  line-height: 1.6;
+  font-size: 1.02rem;
+}
+
+.coming-soon {
+  margin-top: 28px;
+  padding: 22px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.coming-soon p {
+  margin-top: 0;
+  font-weight: 700;
+  font-family: var(--font-serif);
+}
+
+.email-capture {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.email-capture input[type="email"] {
+  flex: 1 1 220px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(91, 75, 107, 0.25);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+}
+
+.email-capture button {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  background: var(--ink);
+  color: #FFFDF7;
+  font-size: 0.95rem;
+}
+
+.item-footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.85rem;
+}
+
+.item-footer a {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Career counselling page
+   ========================================================================== */
+
+.cc-page {
+  background: var(--bg-base);
+}
+
+.cc-header {
+  background: var(--classroom-card-1);
+}
+
+.cc-hero {
+  padding: 40px 24px 20px;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cc-hero h1 {
+  color: var(--classroom-text);
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  margin-bottom: 14px;
+}
+
+.cc-hero p {
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.cc-section {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.cc-section h2 {
+  color: var(--classroom-text);
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+}
+
+.cc-section p, .cc-section li {
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.counsellor-card {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: var(--classroom-card-1);
+  border-radius: 18px;
+  padding: 22px;
+  flex-wrap: wrap;
+}
+
+.counsellor-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--classroom-card-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.counsellor-details h3 {
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+}
+
+.placeholder-note {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.session-details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.session-details-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(91, 75, 107, 0.12);
+}
+
+.session-details-list li:last-child {
+  border-bottom: none;
+}
+
+.booking-embed {
+  border: 2px dashed rgba(138, 69, 48, 0.35);
+  border-radius: 18px;
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.trust-note {
+  background: var(--classroom-card-2);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.cc-footer {
+  text-align: center;
+  padding: 30px 24px;
+  font-size: 0.9rem;
+}
+
+.cc-footer a {
+  text-decoration: underline;
+  margin: 0 8px;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .site-header {
+    padding: 16px 18px;
+  }
+
+  .wedge-label strong {
+    font-size: 0.92rem;
+  }
+
+  .wedge-label span {
+    font-size: 0.68rem;
+  }
+
+  .pie-disc span {
+    font-size: 0.95rem;
+  }
+
+  .bento-grid {
+    gap: 14px;
+    padding: 0 16px 48px;
+  }
+
+  .bento-card {
+    padding: 18px;
+    min-height: 140px;
+  }
+
+  .counsellor-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}
