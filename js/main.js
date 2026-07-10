@@ -1,6 +1,26 @@
 /* EdCircles: small shared behaviours. No frameworks, no build step. */
 
+/* Tag the document so CSS only hides .reveal elements when JS can
+   reveal them again. Without JS, everything stays visible. */
+document.documentElement.classList.add("js");
+
 document.addEventListener("DOMContentLoaded", function () {
+
+  /* Scroll-triggered reveals */
+  var reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.08 });
+    reveals.forEach(function (el) { observer.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add("in-view"); });
+  }
 
   /* Mobile navigation toggle */
   document.querySelectorAll(".nav-toggle").forEach(function (toggle) {
