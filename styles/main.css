@@ -1,615 +1,688 @@
 /* ==========================================================================
    EdCircles shared styles
+   Clean, minimal marketing site. One file, token driven.
+   Edit the tokens below and the whole site follows.
    ========================================================================== */
 
 :root {
-  --bg-base: #FBF6EC;
-  --bg-gradient: radial-gradient(circle at 50% 45%, #FFFDF7 0%, #F3EAD6 70%, #ECE0C8 100%);
-  --ink: #5B4B6B;
+  /* Grounds */
+  --paper: #FFFDF7;
+  --parchment: #FBF6EC;
+  --hero-gradient: radial-gradient(circle at 50% 45%, #FFFDF7 0%, #F3EAD6 70%, #ECE0C8 100%);
 
+  /* Ink */
+  --ink: #5B4B6B;
+  --ink-soft: rgba(91, 75, 107, 0.72);
+  --ink-faint: rgba(91, 75, 107, 0.5);
+  --line: rgba(91, 75, 107, 0.14);
+
+  /* Role colors */
   --library-fill: #A8C4A2;
   --library-text: #3E5A3A;
-  --library-card-1: #D3E3CD;
-  --library-card-2: #C3D7BC;
-  --library-card-3: #B5CBAC;
-
+  --library-tint: #EAF0E7;
   --staffroom-fill: #F0D9A0;
   --staffroom-text: #7A5E20;
-  --staffroom-card-1: #F4E1B0;
-  --staffroom-card-2: #EAD292;
-  --staffroom-card-3: #E8CB88;
-
+  --staffroom-tint: #FAF0D8;
   --classroom-fill: #E8B4A0;
   --classroom-text: #8A4530;
-  --classroom-card-1: #F3D6CA;
-  --classroom-card-2: #EEC7B7;
-  --classroom-card-3: #E9BCA9;
+  --classroom-tint: #F9E7DD;
 
-  --font-serif: Georgia, "Times New Roman", serif;
-  --font-sans: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* Type */
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Shape */
+  --radius: 16px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(91, 75, 107, 0.06), 0 4px 12px rgba(91, 75, 107, 0.06);
+  --shadow-lg: 0 4px 10px rgba(91, 75, 107, 0.08), 0 16px 36px rgba(91, 75, 107, 0.12);
+  --container: 1120px;
 }
 
-* {
-  box-sizing: border-box;
-}
+/* Role theme classes: set on <body> to color role-aware components */
+.theme-staffroom { --role-fill: var(--staffroom-fill); --role-text: var(--staffroom-text); --role-tint: var(--staffroom-tint); }
+.theme-classroom { --role-fill: var(--classroom-fill); --role-text: var(--classroom-text); --role-tint: var(--classroom-tint); }
+.theme-library   { --role-fill: var(--library-fill);   --role-text: var(--library-text);   --role-tint: var(--library-tint); }
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
+/* ==========================================================================
+   Base
+   ========================================================================== */
 
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  background: var(--bg-base);
-  color: var(--ink);
+  margin: 0;
   font-family: var(--font-sans);
-  min-height: 100vh;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
 }
-
-h1, h2, h3, h4, .wordmark {
+h1, h2, h3, .wordmark {
   font-family: var(--font-serif);
   font-weight: 700;
+  line-height: 1.15;
   margin: 0;
+  text-wrap: balance;
+}
+p { margin: 0; }
+a { color: inherit; }
+img, svg { max-width: 100%; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
-a {
-  color: inherit;
-}
-
-button {
-  font-family: var(--font-sans);
-  cursor: pointer;
-}
-
-img, svg {
-  max-width: 100%;
-  display: block;
-}
-
-/* ==========================================================================
-   Site header (used on standalone role, item, and career-counselling pages)
-   ========================================================================== */
-
-.site-header {
-  display: flex;
-  align-items: center;
-  padding: 20px 24px;
-}
-
-.site-header .wordmark {
-  font-size: 1.4rem;
-  text-decoration: none;
-  color: var(--ink);
-}
-
-/* ==========================================================================
-   Landing page / pie gate
-   ========================================================================== */
-
-.landing {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-gradient);
-  padding: 40px 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.landing-subtitle {
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
-  color: var(--ink);
-  margin-bottom: 28px;
-  text-align: center;
-}
-
-.pie-wrap {
-  position: relative;
-  width: min(420px, 82vw);
-  height: min(420px, 82vw);
-  transition: opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1), transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.pie-wrap.pie-hidden {
-  opacity: 0;
-  transform: scale(0.9);
-  pointer-events: none;
-}
-
-.pie {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 18px 40px rgba(91, 75, 107, 0.18);
-}
-
-.wedge {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%);
-  transform-origin: 50% 50%;
-  display: flex;
-  border: none;
-  padding: 0;
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.wedge:hover,
-.wedge:focus-visible {
-  transform: scale(1.035);
-  filter: brightness(1.06);
-  z-index: 2;
-}
-
-.wedge-label {
-  position: absolute;
-  font-family: var(--font-sans);
-  text-align: center;
-  line-height: 1.25;
-}
-
-.wedge-label strong {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-}
-
-.wedge-label span {
+.eyebrow {
   display: block;
   font-size: 0.8rem;
-  opacity: 0.85;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
 }
 
-/* wedge 1: top (Library / Whole-School Training) 300deg -> 60deg (through 0) */
-.wedge-library {
-  clip-path: polygon(50% 50%, 6.7% -25%, 93.3% -25%);
-  background: var(--library-fill);
-  color: var(--library-text);
-}
-.wedge-library .wedge-label {
-  top: 14%;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-/* wedge 2: bottom-right (Staffroom / Teacher Training) 60deg -> 180deg */
-.wedge-staffroom {
-  clip-path: polygon(50% 50%, 93.3% -25%, 150% -25%, 150% 150%, 50% 150%);
-  background: var(--staffroom-fill);
-  color: var(--staffroom-text);
-}
-.wedge-staffroom .wedge-label {
-  top: 50%;
-  right: 8%;
-  transform: translate(0, -50%);
-  text-align: right;
-}
-
-/* wedge 3: bottom-left (Classroom / Student Support) 180deg -> 300deg */
-.wedge-classroom {
-  clip-path: polygon(50% 50%, 50% 150%, -50% 150%, -50% -25%, 6.7% -25%);
-  background: var(--classroom-fill);
-  color: var(--classroom-text);
-}
-.wedge-classroom .wedge-label {
-  top: 50%;
-  left: 8%;
-  transform: translate(0, -50%);
-  text-align: left;
-}
-
-.pie-disc {
+.sr-only {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40%;
-  height: 40%;
-  border-radius: 50%;
-  background: #FFFDF7;
-  box-shadow: 0 6px 18px rgba(91, 75, 107, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.pie-disc span {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: 1.15rem;
+/* Buttons */
+.btn {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius-pill);
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-ghost {
+  background: transparent;
   color: var(--ink);
+  border: 1.5px solid var(--ink);
+  padding: calc(0.7rem - 1.5px) calc(1.5rem - 1.5px);
 }
 
 /* ==========================================================================
-   Full-screen role panels (zoom-in target on the landing page)
+   Navigation
    ========================================================================== */
 
-.role-panel {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  overflow-y: auto;
-  opacity: 0;
-  transform: scale(0.4);
-  transform-origin: 50% 50%;
-  transition: opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1), transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
-  pointer-events: none;
-}
-
-.role-panel.panel-open {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
-
-.back-home {
+.nav {
   position: sticky;
-  top: 20px;
-  left: 20px;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 253, 247, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-height: 68px;
+}
+.wordmark {
+  font-size: 1.4rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  margin-left: auto;
+}
+.nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin: 20px 0 0 20px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
-  border: none;
-  font-size: 0.9rem;
-  color: var(--ink);
-  box-shadow: 0 2px 8px rgba(91, 75, 107, 0.12);
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease;
 }
+.nav-link:hover { color: var(--ink); }
+.nav-link.active { color: var(--ink); border-bottom-color: var(--ink); }
+.nav-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+.dot-staffroom { background: var(--staffroom-fill); }
+.dot-classroom { background: var(--classroom-fill); }
+.dot-library { background: var(--library-fill); }
+.nav-cta { font-size: 0.95rem; padding: 0.55rem 1.25rem; }
 
-.back-home:hover {
-  background: rgba(255, 255, 255, 0.95);
+.nav-toggle {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--ink);
+  margin: 5px 0;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 /* ==========================================================================
-   Role hero + bento grid
+   Home: hero with pie
    ========================================================================== */
 
-.role-hero {
-  padding: 8px 24px 32px;
-  max-width: 760px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.role-hero h1 {
-  font-size: clamp(1.8rem, 5vw, 2.6rem);
-  margin-bottom: 12px;
-}
-
-.role-hero p {
-  font-size: 1.05rem;
-  line-height: 1.55;
-}
-
-.role-library { background: var(--bg-base); color: var(--library-text); }
-.role-staffroom { background: var(--bg-base); color: var(--staffroom-text); }
-.role-classroom { background: var(--bg-base); color: var(--classroom-text); }
-
-.bento-grid {
+.hero { background: var(--hero-gradient); }
+.hero-inner {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-flow: dense;
-  gap: 18px;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px 64px;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 3rem;
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: 0.35rem 0.9rem;
+  margin-bottom: 1.2rem;
+}
+.hero-badge svg { width: 15px; height: 15px; }
+.hero h1 {
+  font-size: clamp(2.3rem, 5vw, 3.3rem);
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  max-width: 52ch;
+  margin-top: 1.1rem;
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.8rem;
 }
 
-.bento-card {
-  grid-column: span 1;
-  border-radius: 18px;
-  padding: 22px;
-  text-decoration: none;
+/* The pie: EdCircles signature mark, each wedge links to its circle */
+.pie-figure {
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  min-height: 160px;
-  border: none;
-  text-align: left;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  box-shadow: 0 4px 10px rgba(91, 75, 107, 0.08);
+  align-items: center;
+  gap: 0.9rem;
 }
-
-.bento-card:hover,
-.bento-card:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 26px rgba(91, 75, 107, 0.16);
+.pie { width: min(100%, 400px); overflow: visible; display: block; }
+.pie-caption { font-size: 0.9rem; color: var(--ink-faint); }
+.wedge {
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
-
-.bento-card.priority {
-  grid-column: span 2;
-  justify-content: center;
-  padding: 30px 32px;
+.wedge:hover, .wedge:focus-visible { transform: scale(1.03); filter: brightness(1.05); }
+.wedge path { stroke: var(--paper); stroke-width: 3; }
+.wedge text { font-family: var(--font-sans); pointer-events: none; }
+.wedge-name { font-size: 10.5px; font-weight: 700; }
+.wedge-sub { font-size: 9px; }
+.pie-disc circle {
+  fill: var(--paper);
+  filter: drop-shadow(0 2px 6px rgba(91, 75, 107, 0.2));
 }
-
-.bento-card.priority .bento-icon {
-  width: 48px;
-  height: 48px;
-}
-
-.bento-card.priority h3 {
-  font-size: 1.35rem;
-}
-
-.bento-card.priority p {
-  font-size: 1rem;
-}
-
-.bento-icon {
-  width: 40px;
-  height: 40px;
-}
-
-.bento-card h3 {
-  font-size: 1.15rem;
-}
-
-.bento-card p {
-  font-size: 0.92rem;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.card-library { color: var(--library-text); }
-.card-staffroom { color: var(--staffroom-text); }
-.card-classroom { color: var(--classroom-text); }
-
-@media (max-width: 760px) {
-  .bento-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .bento-card.priority {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
+.pie-disc text {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 12.5px;
+  fill: var(--ink);
 }
 
 /* ==========================================================================
-   Item / placeholder detail pages
+   Shared section scaffolding
    ========================================================================== */
 
-.item-header {
-  padding: 60px 24px 48px;
+.section { padding: 4.5rem 0; }
+.section-alt { background: var(--parchment); }
+.section-head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2.8rem;
+}
+.section-head h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); }
+.section-head p { margin-top: 0.8rem; color: var(--ink-soft); }
+
+/* ==========================================================================
+   Home: circle cards
+   ========================================================================== */
+
+.circle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+.circle-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.6rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: column;
+}
+.circle-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.circle-card .eyebrow { margin-bottom: 1rem; }
+.circle-card h3 { font-size: 1.35rem; }
+.circle-card > p { margin-top: 0.5rem; font-size: 0.95rem; color: var(--ink-soft); }
+.chip {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.1rem;
+}
+.chip svg { width: 24px; height: 24px; }
+.chip-staffroom { background: var(--staffroom-tint); color: var(--staffroom-text); }
+.chip-classroom { background: var(--classroom-tint); color: var(--classroom-text); }
+.chip-library { background: var(--library-tint); color: var(--library-text); }
+.circle-links {
+  list-style: none;
+  margin: 1.2rem 0 0;
+  padding: 1.2rem 0 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 1;
+}
+.circle-links a {
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.circle-links a:hover { color: var(--ink); text-decoration: underline; }
+.circle-more {
+  margin-top: 1.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.text-staffroom { color: var(--staffroom-text); }
+.text-classroom { color: var(--classroom-text); }
+.text-library { color: var(--library-text); }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: var(--classroom-tint);
+  color: var(--classroom-text);
+}
+
+/* ==========================================================================
+   Home: featured service band
+   ========================================================================== */
+
+.featured-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.featured-inner h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); margin-top: 0.4rem; }
+.featured-inner .lead { margin-top: 1rem; color: var(--ink-soft); }
+.featured-inner .btn { margin-top: 1.6rem; }
+.featured-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: var(--shadow-lg);
+}
+.featured-card h3 { font-size: 1.05rem; margin-bottom: 1rem; }
+.check-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.check-list li {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  font-size: 0.98rem;
+}
+.check-list svg {
+  width: 20px; height: 20px;
+  flex: none;
+  margin-top: 2px;
+  color: var(--classroom-text);
+}
+
+/* ==========================================================================
+   Home: value props and CTA band
+   ========================================================================== */
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
   text-align: center;
 }
+.value-grid .chip { margin: 0 auto 1rem; }
+.value-grid h3 { font-size: 1.15rem; }
+.value-grid p { margin-top: 0.5rem; font-size: 0.95rem; color: var(--ink-soft); }
 
-.item-header h1 {
-  font-size: clamp(1.7rem, 5vw, 2.3rem);
-  margin-bottom: 6px;
+.cta-band { background: var(--ink); color: var(--paper); text-align: center; }
+.cta-band h2 { font-size: clamp(1.7rem, 3.5vw, 2.2rem); }
+.cta-band p { margin: 0.8rem auto 0; max-width: 55ch; opacity: 0.85; }
+.cta-band .btn { margin-top: 1.8rem; background: var(--paper); color: var(--ink); }
+
+/* ==========================================================================
+   Zone pages (Staffroom, Classroom, Library)
+   ========================================================================== */
+
+.page-hero { background: var(--role-tint); }
+.page-hero-inner { padding-top: 3.5rem; padding-bottom: 3.5rem; max-width: 720px; }
+.page-hero .eyebrow { color: var(--role-text); }
+.page-hero h1 { font-size: clamp(2rem, 4.5vw, 2.9rem); }
+.page-hero p { margin-top: 1rem; color: var(--ink-soft); max-width: 58ch; }
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
 }
-
-.item-header .item-eyebrow {
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  opacity: 0.85;
+.service-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+.service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.service-card .chip { background: var(--role-tint); color: var(--role-text); }
+.service-card h3 { font-size: 1.15rem; }
+.service-card p { margin-top: 0.45rem; font-size: 0.93rem; color: var(--ink-soft); flex: 1; }
+.service-more {
+  margin-top: 1.1rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--role-text);
+}
+.service-card .badge { position: absolute; top: 1.2rem; right: 1.2rem; }
 
-.item-body {
-  max-width: 620px;
+/* ==========================================================================
+   Item detail pages
+   ========================================================================== */
+
+.item-main {
+  max-width: 680px;
   margin: 0 auto;
-  padding: 0 24px 64px;
-  text-align: left;
+  padding: 3rem 24px 4.5rem;
 }
-
-.item-body p {
-  line-height: 1.6;
-  font-size: 1.02rem;
-}
+.item-main .eyebrow { color: var(--role-text); }
+.item-main h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); }
+.item-main .lead { margin-top: 1.1rem; font-size: 1.05rem; }
 
 .coming-soon {
-  margin-top: 28px;
-  padding: 22px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.6);
+  margin-top: 2.5rem;
+  background: var(--parchment);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.7rem;
 }
-
-.coming-soon p {
-  margin-top: 0;
-  font-weight: 700;
-  font-family: var(--font-serif);
-}
-
+.coming-soon h2 { font-size: 1.25rem; }
+.coming-soon > p { margin-top: 0.5rem; font-size: 0.95rem; color: var(--ink-soft); }
 .email-capture {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
-  margin-top: 12px;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
 }
-
 .email-capture input[type="email"] {
-  flex: 1 1 220px;
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(91, 75, 107, 0.25);
+  flex: 1;
+  min-width: 210px;
+  padding: 0.65rem 1.1rem;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-pill);
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 1rem;
+  background: var(--paper);
+  color: var(--ink);
 }
-
-.email-capture button {
-  padding: 10px 20px;
-  border-radius: 999px;
-  border: none;
-  background: var(--ink);
-  color: #FFFDF7;
-  font-size: 0.95rem;
+.email-capture input[type="email"]:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
+.form-note {
+  display: none;
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--role-text, var(--ink));
 }
-
-.item-footer {
-  text-align: center;
-  padding: 24px;
-  font-size: 0.85rem;
-}
-
-.item-footer a {
-  text-decoration: underline;
-}
+.form-note.shown { display: block; }
 
 /* ==========================================================================
    Career counselling page
    ========================================================================== */
 
-.cc-page {
-  background: var(--bg-base);
-}
-
-.cc-header {
-  background: var(--classroom-card-1);
-}
-
-.cc-hero {
-  padding: 40px 24px 20px;
-  max-width: 700px;
+.cc-main {
+  max-width: 760px;
   margin: 0 auto;
-  text-align: center;
+  padding: 0 24px 4.5rem;
 }
-
-.cc-hero h1 {
-  color: var(--classroom-text);
-  font-size: clamp(1.9rem, 5vw, 2.6rem);
-  margin-bottom: 14px;
-}
-
-.cc-hero p {
-  line-height: 1.6;
-  font-size: 1.05rem;
-}
-
-.cc-section {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 32px 24px;
-}
-
-.cc-section h2 {
-  color: var(--classroom-text);
-  font-size: 1.4rem;
-  margin-bottom: 14px;
-}
-
-.cc-section p, .cc-section li {
-  line-height: 1.6;
-  font-size: 1rem;
-}
+.cc-section { margin-top: 3rem; }
+.cc-section h2 { font-size: 1.5rem; margin-bottom: 1rem; }
 
 .counsellor-card {
   display: flex;
-  gap: 20px;
+  gap: 1.5rem;
   align-items: center;
-  background: var(--classroom-card-1);
-  border-radius: 18px;
-  padding: 22px;
-  flex-wrap: wrap;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  box-shadow: var(--shadow-sm);
 }
-
 .counsellor-photo {
-  width: 96px;
-  height: 96px;
+  flex: none;
+  width: 104px; height: 104px;
   border-radius: 50%;
-  flex-shrink: 0;
-  background: var(--classroom-card-3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--role-tint);
+  color: var(--role-text);
+  display: grid;
+  place-items: center;
 }
-
-.counsellor-details h3 {
-  margin-bottom: 6px;
-  font-size: 1.1rem;
-}
-
+.counsellor-details h3 { font-size: 1.1rem; }
+.counsellor-details p { margin-top: 0.4rem; }
 .placeholder-note {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 0.85rem;
+  display: block;
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
   font-style: italic;
-  background: rgba(255, 255, 255, 0.6);
-  padding: 6px 12px;
+  color: var(--ink-faint);
+  background: var(--parchment);
   border-radius: 8px;
+  padding: 0.5rem 0.8rem;
 }
 
-.session-details-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
 }
+.detail-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+}
+.detail-card h3 {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--role-text);
+}
+.detail-card p { margin-top: 0.5rem; font-size: 0.95rem; }
 
-.session-details-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(91, 75, 107, 0.12);
-}
-
-.session-details-list li:last-child {
-  border-bottom: none;
-}
+.plain-note { margin-top: 1.2rem; font-size: 0.95rem; color: var(--ink-soft); }
 
 .booking-embed {
-  border: 2px dashed rgba(138, 69, 48, 0.35);
-  border-radius: 18px;
-  padding: 40px 20px;
+  border: 2px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--parchment);
+  padding: 2.2rem 1.6rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.5);
 }
+.booking-embed > p { color: var(--ink-soft); }
+.booking-embed .email-capture { justify-content: center; }
+.booking-embed .email-capture input[type="email"] { flex: 0 1 280px; }
 
 .trust-note {
-  background: var(--classroom-card-2);
-  border-radius: 16px;
-  padding: 20px;
-}
-
-.cc-footer {
+  margin-top: 3rem;
   text-align: center;
-  padding: 30px 24px;
-  font-size: 0.9rem;
+  max-width: 54ch;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
 }
 
-.cc-footer a {
-  text-decoration: underline;
-  margin: 0 8px;
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.footer {
+  background: var(--ink);
+  color: rgba(255, 253, 247, 0.8);
+  margin-top: auto;
+}
+.footer a { color: inherit; text-decoration: none; }
+.footer a:hover { color: var(--paper); text-decoration: underline; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3rem;
+}
+.footer .wordmark { color: var(--paper); }
+.footer-tagline { margin-top: 0.8rem; font-size: 0.92rem; max-width: 30ch; }
+.footer-col h3 {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin-bottom: 1rem;
+}
+.footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255, 253, 247, 0.15);
+  padding-top: 1.4rem;
+  padding-bottom: 1.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: space-between;
+  font-size: 0.85rem;
 }
 
 /* ==========================================================================
    Responsive
    ========================================================================== */
 
-@media (max-width: 480px) {
-  .site-header {
-    padding: 16px 18px;
-  }
+@media (max-width: 900px) {
+  .circle-grid, .service-grid, .value-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-inner, .featured-inner { grid-template-columns: 1fr; gap: 2.2rem; }
+  .pie-figure { order: 2; }
+  .pie { width: min(78vw, 330px); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
 
-  .wedge-label strong {
-    font-size: 0.92rem;
-  }
+@media (max-width: 640px) {
+  .section { padding: 3rem 0; }
+  .hero-inner { padding-top: 2.8rem; padding-bottom: 3rem; text-align: center; }
+  .hero-actions { justify-content: center; }
+  .hero-badge { margin-left: auto; margin-right: auto; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .circle-grid, .service-grid, .value-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .counsellor-card { flex-direction: column; text-align: center; }
 
-  .wedge-label span {
-    font-size: 0.68rem;
-  }
-
-  .pie-disc span {
-    font-size: 0.95rem;
-  }
-
-  .bento-grid {
-    gap: 14px;
-    padding: 0 16px 48px;
-  }
-
-  .bento-card {
-    padding: 18px;
-    min-height: 140px;
-  }
-
-  .counsellor-card {
+  /* Collapsible nav */
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     flex-direction: column;
-    text-align: center;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 0.6rem 24px 1.2rem;
+    box-shadow: var(--shadow-lg);
   }
+  .nav-links.open { display: flex; }
+  .nav-link { width: 100%; padding: 0.7rem 0; border-bottom: 0; }
+  .nav-cta { margin-top: 0.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+  html { scroll-behavior: auto; }
 }

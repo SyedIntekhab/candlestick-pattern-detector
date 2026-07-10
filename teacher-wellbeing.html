@@ -8,32 +8,87 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
-<body class="role-staffroom">
-  <header class="site-header">
-    <a class="wordmark" href="index.html">EdCircles</a>
+<body class="theme-staffroom">
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="wordmark" href="index.html">EdCircles</a>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" aria-label="Main">
+        <a class="nav-link active" href="staffroom.html"><span class="nav-dot dot-staffroom"></span>The Staffroom</a>
+        <a class="nav-link" href="classroom.html"><span class="nav-dot dot-classroom"></span>The Classroom</a>
+        <a class="nav-link" href="library.html"><span class="nav-dot dot-library"></span>The Library</a>
+        <a class="btn btn-primary nav-cta" href="career-counselling.html">Book a session</a>
+      </nav>
+    </div>
   </header>
 
-  <div class="item-header" style="background: var(--staffroom-card-3); color: var(--staffroom-text);">
-    <p class="item-eyebrow">Teacher Training</p>
+  <main class="item-main">
+    <span class="eyebrow">The Staffroom &middot; Teacher Training</span>
     <h1>Teacher Wellbeing</h1>
-  </div>
-
-  <div class="item-body">
-    <p>Coaching and support for the parts of teaching that never show up on a lesson observation form: workload, burnout, difficult classes, and the general grind of the job. Sessions are confidential and led by someone who understands the specific pressures of the classroom, not a generic corporate wellness script.</p>
+    <p class="lead">Coaching and support for the parts of teaching that never show up on a lesson observation form: workload, burnout, difficult classes, and the general grind of the job. Sessions are confidential and led by someone who understands the specific pressures of the classroom, not a generic corporate wellness script.</p>
 
     <div class="coming-soon">
-      <p>More details coming soon</p>
-      <p>Leave your email and we will let you know as soon as this is ready to book.</p>
-      <form class="email-capture" onsubmit="event.preventDefault();">
-        <input type="email" placeholder="you@example.com" aria-label="Email address" required />
-        <button type="submit">Notify me</button>
+      <h2>More details coming soon</h2>
+      <p>This service is being set up now. Leave your email and we will let you know as soon as it is ready to book.</p>
+      <!-- PLACEHOLDER: this form is not wired to a backend yet. Connect it to a mailing list or form service before launch. -->
+      <form class="email-capture">
+        <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
+        <button class="btn btn-primary" type="submit">Notify me</button>
       </form>
+      <p class="form-note" role="status">Thank you. We will be in touch when this opens.</p>
     </div>
-  </div>
+  </main>
 
-  <footer class="item-footer">
-    <a href="staffroom.html">Back to the Staffroom</a>
-    <a href="index.html">EdCircles home</a>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <span class="wordmark">EdCircles</span>
+          <p class="footer-tagline">Verified education consultants for teachers, students, and schools.</p>
+        </div>
+        <div class="footer-col">
+          <h3><a href="staffroom.html">The Staffroom</a></h3>
+          <ul>
+          <li><a href="career-adviser.html">Career Adviser</a></li>
+          <li><a href="pd-workshops.html">PD Workshops</a></li>
+          <li><a href="paper-moderation.html">Paper Moderation</a></li>
+          <li><a href="cv-building.html">CV Building</a></li>
+          <li><a href="linkedin-optimization.html">LinkedIn Optimization</a></li>
+          <li><a href="teacher-wellbeing.html">Teacher Wellbeing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="classroom.html">The Classroom</a></h3>
+          <ul>
+          <li><a href="career-counselling.html">Career Counselling</a></li>
+          <li><a href="mock-exams.html">Mock Exams</a></li>
+          <li><a href="one-on-one-tutoring.html">1-on-1 Tutoring</a></li>
+          <li><a href="ib-physics.html">IB Physics</a></li>
+          <li><a href="igcse-maths.html">IGCSE Maths</a></li>
+          <li><a href="exam-resources.html">Exam Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="library.html">The Library</a></h3>
+          <ul>
+          <li><a href="lesson-plans.html">Lesson Plans</a></li>
+          <li><a href="curriculum-resources.html">Curriculum Resources</a></li>
+          <li><a href="inspection-prep.html">Inspection Prep</a></li>
+          <li><a href="safeguarding.html">Safeguarding</a></li>
+          <li><a href="use-of-ai.html">Use of AI</a></li>
+          <li><a href="graphic-design.html">Graphic Design</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 EdCircles. All rights reserved.</span>
+        <span>Every consultant is verified before joining the platform.</span>
+      </div>
+    </div>
   </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
