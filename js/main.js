@@ -3,14 +3,17 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   /* Mobile navigation toggle */
-  var toggle = document.querySelector(".nav-toggle");
-  var links = document.querySelector(".nav-links");
-  if (toggle && links) {
+  document.querySelectorAll(".nav-toggle").forEach(function (toggle) {
+    var nav = toggle.closest(".nav");
+    var links = nav ? nav.querySelector(".nav-links") : null;
+    if (!links) {
+      return;
+    }
     toggle.addEventListener("click", function () {
       var open = links.classList.toggle("open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
     });
-  }
+  });
 
   /* Email capture forms.
      These are placeholders: they show a confirmation but do not store
