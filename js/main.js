@@ -1,4 +1,4 @@
-/* EdCircles — pie gate zoom transition */
+/* EdCircles pie gate zoom transition */
 
 document.addEventListener("DOMContentLoaded", function () {
   var pieWrap = document.querySelector(".pie-wrap");

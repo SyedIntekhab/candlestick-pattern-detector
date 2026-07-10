@@ -1,5 +1,5 @@
 /* ==========================================================================
-   EdCircles — shared styles
+   EdCircles shared styles
    ========================================================================== */
 
 :root {
@@ -167,7 +167,7 @@ img, svg {
 
 /* wedge 1: top (Library / Whole-School Training) 300deg -> 60deg (through 0) */
 .wedge-library {
-  clip-path: polygon(50% 50%, 21.13% 0%, 78.87% 0%);
+  clip-path: polygon(50% 50%, 6.7% -25%, 93.3% -25%);
   background: var(--library-fill);
   color: var(--library-text);
 }
@@ -179,7 +179,7 @@ img, svg {
 
 /* wedge 2: bottom-right (Staffroom / Teacher Training) 60deg -> 180deg */
 .wedge-staffroom {
-  clip-path: polygon(50% 50%, 78.87% 0%, 100% 50%, 78.87% 100%, 50% 100%);
+  clip-path: polygon(50% 50%, 93.3% -25%, 150% -25%, 150% 150%, 50% 150%);
   background: var(--staffroom-fill);
   color: var(--staffroom-text);
 }
@@ -192,7 +192,7 @@ img, svg {
 
 /* wedge 3: bottom-left (Classroom / Student Support) 180deg -> 300deg */
 .wedge-classroom {
-  clip-path: polygon(50% 50%, 50% 100%, 21.13% 100%, 0% 50%, 21.13% 0%);
+  clip-path: polygon(50% 50%, 50% 150%, -50% 150%, -50% -25%, 6.7% -25%);
   background: var(--classroom-fill);
   color: var(--classroom-text);
 }
@@ -217,7 +217,6 @@ img, svg {
   align-items: center;
   justify-content: center;
   z-index: 3;
-  pointer-events: none;
 }
 
 .pie-disc span {

@@ -4,9 +4,9 @@ A marketing and booking website for EdCircles, a two-sided marketplace connectin
 
 The site has three zones, reached from a pie chart on the homepage or directly by URL:
 
-- **The Staffroom** (`staffroom.html`) — teacher training and career support
-- **The Classroom** (`classroom.html`) — student career counselling, tutoring, and exam prep
-- **The Library** (`library.html`) — whole-school training and resources
+- **The Staffroom** (`staffroom.html`): teacher training and career support
+- **The Classroom** (`classroom.html`): student career counselling, tutoring, and exam prep
+- **The Library** (`library.html`): whole-school training and resources
 
 `career-counselling.html` is the one fully built booking page for now; every other item links to a placeholder page with real draft copy and an email capture for interest.
 
