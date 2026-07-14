@@ -54,7 +54,7 @@ assets/favicon.svg          pie favicon
 
 ## Still needed before launch
 
-1. Counsellor name, short bio, and headshot for `career-counselling.html` (marked `PLACEHOLDER` in the file)
+1. Counsellor headshot photo for `career-counselling.html` (name and bio for Bhavna Dhanak are in; the photo slot is marked `PLACEHOLDER`, drop the image at `assets/bhavna-dhanak.jpg`)
 2. Confirmed session length (marked `PLACEHOLDER`)
 3. The Calendly inline embed code (marked `CALENDLY EMBED GOES HERE`)
 4. A mailing list or form service for the email capture forms (they currently confirm but store nothing)

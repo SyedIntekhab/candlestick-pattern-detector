@@ -827,3 +827,21 @@ img, svg { max-width: 100%; }
   html { scroll-behavior: auto; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* Counsellor details */
+.counsellor-role {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--role-text);
+  margin-top: 0.15rem;
+  margin-bottom: 0.5rem;
+}
+.counsellor-photo { overflow: hidden; }
+.counsellor-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
