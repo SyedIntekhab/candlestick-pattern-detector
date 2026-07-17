@@ -35,10 +35,33 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  /* Email capture forms.
+  /* FAQ accordion: one item open at a time */
+  var faqItems = document.querySelectorAll(".faq-item");
+  faqItems.forEach(function (item) {
+    var btn = item.querySelector(".faq-q");
+    if (!btn) {
+      return;
+    }
+    btn.addEventListener("click", function () {
+      var wasOpen = item.classList.contains("open");
+      faqItems.forEach(function (other) {
+        other.classList.remove("open");
+        var otherBtn = other.querySelector(".faq-q");
+        if (otherBtn) {
+          otherBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+      if (!wasOpen) {
+        item.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  /* Email capture and contact forms.
      These are placeholders: they show a confirmation but do not store
-     the address yet. Wire them to a mailing list service before launch. */
-  document.querySelectorAll(".email-capture").forEach(function (form) {
+     anything yet. Wire them to a form or mailing list service before launch. */
+  document.querySelectorAll(".email-capture, .contact-form").forEach(function (form) {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       var note = form.parentElement.querySelector(".form-note");

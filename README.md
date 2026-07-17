@@ -40,6 +40,10 @@ staffroom.html              Teacher Training service grid
 classroom.html              Student Support service grid
 library.html                Whole-School Training service grid
 career-counselling.html     full booking page
+cpd-catalogue.html          CPD for Schools: three in-service programmes
+about.html                  vision, mission, what we do, testimonials (placeholder)
+faq.html                    accordion FAQ (extend by copying a .faq-item block)
+contact.html                contact form (placeholder backend) and details
 *.html                      individual service placeholder pages
 styles/main.css             all styles, token driven (edit colors at the top)
 js/main.js                  mobile nav toggle and placeholder email forms

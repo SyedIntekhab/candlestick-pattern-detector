@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PD Workshops | EdCircles</title>
-  <meta name="description" content="Structured CPD sessions and coaching aligned to IB, CBSE, IGCSE, and Cambridge frameworks." />
+  <title>Contact | EdCircles</title>
+  <meta name="description" content="Talk to EdCircles about sessions, CPD programmes, custom requests, or joining the platform as a consultant." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
-<body class="theme-staffroom">
+<body class="theme-library">
   <header class="nav">
     <div class="container nav-inner">
       <a class="wordmark" href="index.html">EdCircles</a>
@@ -16,7 +16,7 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav-links" aria-label="Main">
-        <a class="nav-link active" href="staffroom.html"><span class="nav-dot dot-staffroom"></span>The Staffroom</a>
+        <a class="nav-link" href="staffroom.html"><span class="nav-dot dot-staffroom"></span>The Staffroom</a>
         <a class="nav-link" href="classroom.html"><span class="nav-dot dot-classroom"></span>The Classroom</a>
         <a class="nav-link" href="library.html"><span class="nav-dot dot-library"></span>The Library</a>
         <a class="nav-link nav-link-cpd" href="cpd-catalogue.html">CPD for Schools</a>
@@ -25,22 +25,67 @@
     </div>
   </header>
 
-  <main class="item-main">
-    <span class="eyebrow anim-1">The Staffroom &middot; Teacher Training</span>
-    <h1 class="anim-2">PD Workshops</h1>
-    <p class="lead anim-3">Structured professional development sessions built around the frameworks your school actually teaches: IB, CBSE, IGCSE, and Cambridge. Workshops can run live for a department or as recorded modules staff work through at their own pace, and each one is built to produce something usable in the classroom the next day, not just a certificate for the file.</p>
-
-    <div class="coming-soon anim-4">
-      <h2>More details coming soon</h2>
-      <p>This service is being set up now. Leave your email and we will let you know as soon as it is ready to book.</p>
-      <!-- PLACEHOLDER: this form is not wired to a backend yet. Connect it to a mailing list or form service before launch. -->
-      <form class="email-capture">
-        <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
-        <button class="btn btn-primary" type="submit">Notify me</button>
-      </form>
-      <p class="form-note" role="status">Thank you. We will be in touch when this opens.</p>
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <span class="eyebrow anim-1">Contact</span>
+      <h1 class="anim-2">Talk to us.</h1>
+      <p class="anim-3">Sessions, CPD days, custom requests, or joining as a consultant: describe it plainly and we will reply the same way.</p>
     </div>
-  </main>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="contact-card reveal">
+        <h2>Send a message</h2>
+        <!-- PLACEHOLDER: this form is not wired to a backend yet. On Netlify, the
+             quickest option is Netlify Forms: add data-netlify="true" and a
+             form name, then remove the JS preventDefault for this form. -->
+        <form class="contact-form">
+          <div class="field">
+            <label for="c-name">Name</label>
+            <input id="c-name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="c-email">Email</label>
+            <input id="c-email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="c-role">I am a</label>
+            <select id="c-role" name="role">
+              <option>Teacher</option>
+              <option>School</option>
+              <option>Consultant</option>
+              <option>Student</option>
+              <option>Parent</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="c-msg">Message</label>
+            <textarea id="c-msg" name="message" required></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Send message</button>
+          <p class="form-note" role="status">Thank you. Your message is noted and we will reply by email.</p>
+        </form>
+      </div>
+      <aside class="contact-aside">
+        <div class="method-card reveal">
+          <h3>Email</h3>
+          <!-- PLACEHOLDER: replace with the real EdCircles address once the domain
+               and mailbox are set up. -->
+          <p>Our email address arrives with our domain, which is being set up now. Until then, the form is the reliable route and lands with a real person.</p>
+        </div>
+        <div class="method-card reveal">
+          <h3>Response time</h3>
+          <p>We are a small team of educators, so we aim to reply within two working days, and usually sooner.</p>
+        </div>
+        <div class="method-card reveal">
+          <h3>Booking a session instead?</h3>
+          <p>Career Counselling has its own page with everything you need. <a href="career-counselling.html">Go straight there</a>.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
 
   <footer class="footer">
     <div class="container">
