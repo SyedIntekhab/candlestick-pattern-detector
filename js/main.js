@@ -72,3 +72,46 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+/* Members page: split-screen role chooser with sign-in and sign-up cards */
+document.addEventListener("DOMContentLoaded", function () {
+  var split = document.querySelector(".member-split");
+  if (!split) {
+    return;
+  }
+
+  function pick(side) {
+    split.classList.remove("choose", "picked-student", "picked-teacher");
+    split.classList.add("picked-" + side);
+  }
+
+  split.querySelectorAll("[data-side]").forEach(function (el) {
+    el.addEventListener("click", function (event) {
+      if (el.classList.contains("side") && event.target.closest(".auth-card")) {
+        return;
+      }
+      event.stopPropagation();
+      pick(el.getAttribute("data-side"));
+    });
+  });
+
+  split.querySelectorAll(".auth-card").forEach(function (card) {
+    card.querySelectorAll(".auth-tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        card.querySelectorAll(".auth-tab").forEach(function (t) { t.classList.remove("active"); });
+        tab.classList.add("active");
+        card.querySelector(".auth-signin").classList.toggle("hidden", tab.getAttribute("data-mode") !== "signin");
+        card.querySelector(".auth-signup").classList.toggle("hidden", tab.getAttribute("data-mode") !== "signup");
+      });
+    });
+    card.querySelectorAll(".auth-form").forEach(function (form) {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var note = form.querySelector(".form-note");
+        if (note) {
+          note.classList.add("shown");
+        }
+      });
+    });
+  });
+});

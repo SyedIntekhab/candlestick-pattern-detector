@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Members | EdCircles</title>
-  <meta name="description" content="A free EdCircles member account will tie the three circles together: exam resources, bookings, and first word on what opens next." />
+  <meta name="description" content="Choose your side of the classroom: student or teacher. EdCircles member accounts are on their way." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
@@ -25,11 +25,114 @@
     </div>
   </header>
 
-  <section class="page-hero">
-    <div class="container page-hero-inner">
-      <span class="eyebrow anim-1">Members</span>
-      <h1 class="anim-2">Membership is on its way.</h1>
-      <p class="anim-3">A free EdCircles account will tie the three circles together: resources, bookings, and first word on what opens next. Accounts are being built now.</p>
+  <h1 class="sr-only">Members</h1>
+  <section class="member-split choose" id="member-split">
+    <div class="side side-student" data-side="student">
+      <div class="side-bg" aria-hidden="true">
+<span class="float-doodle" style="top:12%; left:10%; width:52px; --dur:11s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l18-7-5.5 16-4-6.5z"/><path d="M11.5 14.5L21 5"/></svg></span>
+<span class="float-doodle" style="top:22%; right:14%; width:44px; --dur:14s; --delay:1.2s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10.5 5 8 4.5 4.5 4.8v13.4C8 17.9 10.5 18.4 12 19.7c1.5-1.3 4-1.8 7.5-1.5V4.8C16 4.5 13.5 5 12 6.5z"/><path d="M12 6.5v13.2"/></svg></span>
+<span class="float-doodle" style="bottom:30%; left:16%; width:34px; --dur:9s; --delay:.6s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 5.9L12 16.4 6.7 19.3l1.2-5.9L3.4 9.3l6-.7z"/></svg></span>
+<span class="float-doodle" style="bottom:14%; right:20%; width:40px; --dur:12.5s; --delay:2s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5l4 4L9 19l-5 1 1-5z"/><path d="M13 7l4 4"/></svg></span>
+<span class="float-doodle" style="top:52%; left:6%; width:38px; --dur:15s; --delay:3s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8 7.5h8M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg></span>
+      </div>
+      <div class="side-content">
+        <span class="eyebrow">The Classroom &middot; Members</span>
+        <h2 class="side-title">I am a student</h2>
+        <p class="side-motto">Small steps. Big dreams.<br />Brighter tomorrows.</p>
+        <button class="btn btn-primary side-choose" type="button" data-side="student">Continue as a student</button>
+      </div>
+      <div class="auth-card">
+        <!-- PLACEHOLDER: these forms are interface only. Wire them to a real
+             auth service before accounts go live; nothing is stored today. -->
+        <div class="auth-tabs" role="tablist">
+          <button class="auth-tab active" type="button" data-mode="signin">Sign in</button>
+          <button class="auth-tab" type="button" data-mode="signup">Create account</button>
+        </div>
+        <form class="auth-form auth-signin">
+          <div class="field">
+            <label for="student-si-email">Email</label>
+            <input id="student-si-email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="student-si-pass">Password</label>
+            <input id="student-si-pass" type="password" autocomplete="current-password" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Sign in</button>
+          <p class="form-note" role="status">Member accounts open very soon. This form goes live the day they do.</p>
+        </form>
+        <form class="auth-form auth-signup hidden">
+          <div class="field">
+            <label for="student-su-name">Name</label>
+            <input id="student-su-name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="student-su-email">Email</label>
+            <input id="student-su-email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="student-su-pass">Choose a password</label>
+            <input id="student-su-pass" type="password" autocomplete="new-password" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Create account</button>
+          <p class="form-note" role="status">Member accounts open very soon. This form goes live the day they do.</p>
+        </form>
+        <button class="switch-link" type="button" data-side="teacher">I am a teacher instead</button>
+      </div>
+      <button class="side-mini" type="button" data-side="student"><span>I am a student instead</span></button>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+    <div class="side side-teacher" data-side="teacher">
+      <div class="side-bg" aria-hidden="true">
+<span class="float-doodle" style="top:14%; right:12%; width:46px; --dur:12s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 8.4c1.9.6 3 2.4 3 4.6 0 3.4-2.5 7-4.9 7-.6 0-1-.2-1.6-.2s-1 .2-1.6.2c-2.4 0-4.9-3.6-4.9-7 0-2.2 1.1-4 3-4.6 1-.3 2.2-.1 3.5.5 1.3-.6 2.5-.8 3.5-.5z"/><path d="M12 8V5.5c0-1.5 1-2.5 2.5-3"/></svg></span>
+<span class="float-doodle" style="top:26%; left:12%; width:44px; --dur:10s; --delay:1.5s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8.5h10V16a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z"/><path d="M15 10.5h2a2.5 2.5 0 0 1 0 5h-2M7.5 5.5v-2M10.5 5.5V3"/></svg></span>
+<span class="float-doodle" style="bottom:32%; right:18%; width:48px; --dur:14s; --delay:.8s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4M7 8h7M7 11h4"/></svg></span>
+<span class="float-doodle" style="bottom:14%; left:18%; width:34px; --dur:9.5s; --delay:2.4s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span>
+<span class="float-doodle" style="top:54%; right:7%; width:42px; --dur:15.5s; --delay:3.4s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5h16M5.5 19.5V8h4v11.5M10.5 19.5V5h4v14.5M15.5 19.5V10h3.5v9.5"/></svg></span>
+      </div>
+      <div class="side-content">
+        <span class="eyebrow">The Staffroom &middot; Members</span>
+        <h2 class="side-title">I am a teacher</h2>
+        <p class="side-motto">Great teachers.<br />Stronger tomorrows.</p>
+        <button class="btn btn-primary side-choose" type="button" data-side="teacher">Continue as a teacher</button>
+      </div>
+      <div class="auth-card">
+        <!-- PLACEHOLDER: these forms are interface only. Wire them to a real
+             auth service before accounts go live; nothing is stored today. -->
+        <div class="auth-tabs" role="tablist">
+          <button class="auth-tab active" type="button" data-mode="signin">Sign in</button>
+          <button class="auth-tab" type="button" data-mode="signup">Create account</button>
+        </div>
+        <form class="auth-form auth-signin">
+          <div class="field">
+            <label for="teacher-si-email">Email</label>
+            <input id="teacher-si-email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="teacher-si-pass">Password</label>
+            <input id="teacher-si-pass" type="password" autocomplete="current-password" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Sign in</button>
+          <p class="form-note" role="status">Member accounts open very soon. This form goes live the day they do.</p>
+        </form>
+        <form class="auth-form auth-signup hidden">
+          <div class="field">
+            <label for="teacher-su-name">Name</label>
+            <input id="teacher-su-name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="teacher-su-email">Email</label>
+            <input id="teacher-su-email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="teacher-su-pass">Choose a password</label>
+            <input id="teacher-su-pass" type="password" autocomplete="new-password" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Create account</button>
+          <p class="form-note" role="status">Member accounts open very soon. This form goes live the day they do.</p>
+        </form>
+        <button class="switch-link" type="button" data-side="student">I am a student instead</button>
+      </div>
+      <button class="side-mini" type="button" data-side="teacher"><span>I am a teacher instead</span></button>
     </div>
   </section>
 
@@ -53,12 +156,9 @@
         </div>
       </div>
 
-      <!-- PLACEHOLDER: member accounts need an auth and membership system before
-           this page goes live in earnest. When that exists, replace the card
-           below with real sign-in and registration forms. -->
       <div class="coming-soon members-card reveal">
         <h2>Be first through the door</h2>
-        <p>Leave your email and we will invite you the day member accounts open. No newsletter, no noise, just the invitation.</p>
+        <p>Accounts are being built now. Leave your email and we will invite you the day they open.</p>
         <form class="email-capture">
           <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
           <button class="btn btn-primary" type="submit">Invite me</button>
