@@ -27,6 +27,13 @@
 
   <h1 class="sr-only">Members</h1>
   <section class="member-split choose" id="member-split">
+    <!-- Desktop-only living background: the concept promo video, gated by JS
+         to viewport width and prefers-reduced-motion. Never fetched on mobile
+         (preload="none", no autoplay attribute) so it costs nothing there. -->
+    <video class="split-video" muted loop playsinline preload="none" poster="assets/video/members-bg-poster.jpg" aria-hidden="true">
+      <source src="assets/video/members-bg.webm" type="video/webm" />
+      <source src="assets/video/members-bg.mp4" type="video/mp4" />
+    </video>
     <div class="side side-student" data-side="student">
       <div class="side-bg" aria-hidden="true">
 <span class="float-doodle" style="top:12%; left:10%; width:52px; --dur:11s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l18-7-5.5 16-4-6.5z"/><path d="M11.5 14.5L21 5"/></svg></span>

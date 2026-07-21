@@ -1457,19 +1457,39 @@ img, svg { max-width: 100%; }
    ========================================================================== */
 
 .member-split {
+  position: relative;
   display: flex;
   min-height: calc(100vh - 68px);
   overflow: hidden;
 }
+
+/* Living background video: desktop only, faded in once JS confirms it is
+   actually playing (see js/main.js). Sits behind both sides; revealed only
+   while a side's own tint background turns transparent below. */
+.split-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+.member-split.video-bg-active.choose .split-video { opacity: 1; }
+.member-split.video-bg-active.choose .side { background: transparent; }
+
 .side {
   position: relative;
+  z-index: 1;
   overflow: hidden;
   flex-grow: 1;
   flex-basis: 0;
   display: grid;
   place-items: center;
   padding: 3.5rem 2rem;
-  transition: flex-grow 0.65s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: flex-grow 0.65s cubic-bezier(0.65, 0, 0.35, 1), background 0.6s ease;
 }
 .side-student { --side-fill: var(--classroom-fill); --side-text: var(--classroom-text); --side-tint: var(--classroom-tint); }
 .side-teacher { --side-fill: var(--staffroom-fill); --side-text: var(--staffroom-text); --side-tint: var(--staffroom-tint); }
@@ -1522,6 +1542,8 @@ img, svg { max-width: 100%; }
 }
 
 .seam {
+  position: relative;
+  z-index: 1;
   flex: none;
   width: 5px;
   background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.95) 30%, rgba(255, 255, 255, 0.95) 70%, transparent);

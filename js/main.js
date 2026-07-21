@@ -80,9 +80,30 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
+  /* Living background video: only ever requested on desktop, and only
+     started if the visitor has not asked for reduced motion. Fading it
+     in waits for the browser's "playing" event, so a blocked or slow
+     autoplay never leaves a blank gap; the flat tint background shows
+     until the video actually confirms it is running. */
+  var splitVideo = split.querySelector(".split-video");
+  var canPlayVideo =
+    splitVideo &&
+    window.matchMedia("(min-width: 761px)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (canPlayVideo) {
+    splitVideo.addEventListener("playing", function () {
+      split.classList.add("video-bg-active");
+    });
+    splitVideo.preload = "auto";
+    splitVideo.play().catch(function () {});
+  }
+
   function pick(side) {
     split.classList.remove("choose", "picked-student", "picked-teacher");
     split.classList.add("picked-" + side);
+    if (splitVideo) {
+      splitVideo.pause();
+    }
   }
 
   split.querySelectorAll("[data-side]").forEach(function (el) {
