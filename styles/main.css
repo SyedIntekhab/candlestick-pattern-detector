@@ -1646,13 +1646,33 @@ img, svg { max-width: 100%; }
 
 @media (max-width: 760px) {
   .member-split { flex-direction: column; min-height: 0; }
-  .side { padding: 3rem 1.25rem; min-height: 46vh; }
+  .side { flex: none; padding: 3rem 1.25rem; min-height: 46vh; }
   .seam {
     width: auto;
     height: 5px;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95) 30%, rgba(255, 255, 255, 0.95) 70%, transparent);
   }
-  .picked-teacher .side-student,
-  .picked-student .side-teacher { min-height: 72px; flex-grow: 0.01; }
   .side-mini span { writing-mode: horizontal-tb; transform: none; }
+
+  /* Choose screen: hide the inactive auth cards so each half stays a clean 46vh */
+  .member-split.choose .auth-card { display: none; }
+
+  /* Active side grows to fit the whole auth card, content pinned to the top so
+     the submit button is never clipped by the collapsed rail below it. */
+  .picked-student .side-student,
+  .picked-teacher .side-teacher {
+    min-height: auto;
+    align-content: start;
+    justify-items: center;
+    padding-top: 2.2rem;
+    padding-bottom: 2.8rem;
+  }
+
+  /* Collapsed side becomes a compact rail; its hidden content must not add height */
+  .picked-teacher .side-student,
+  .picked-student .side-teacher { min-height: 68px; }
+  .picked-teacher .side-student .auth-card,
+  .picked-teacher .side-student .side-content,
+  .picked-student .side-teacher .auth-card,
+  .picked-student .side-teacher .side-content { display: none; }
 }
