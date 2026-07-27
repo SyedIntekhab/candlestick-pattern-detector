@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Staffroom | EdCircles</title>
+  <meta name="description" content="Your EdCircles teacher dashboard: today at a glance, what is pinned, quick links, and your workspace." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body class="theme-staffroom dash-page dash-loading">
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="wordmark" href="index.html"><svg class="arc-mark" viewBox="0 0 40 40" aria-hidden="true" fill="none"><path class="arc arc-1" d="M5.2 17.4 A15 15 0 0 1 34.8 17.4"/><path class="arc arc-2" d="M34.8 22.6 A15 15 0 0 1 5.2 22.6"/></svg>EdCircles</a>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" aria-label="Main">
+        <a class="nav-link" href="staffroom.html"><span class="nav-dot dot-staffroom"></span>The Staffroom</a>
+        <a class="nav-link" href="classroom.html"><span class="nav-dot dot-classroom"></span>The Classroom</a>
+        <a class="nav-link" href="library.html"><span class="nav-dot dot-library"></span>The Library</a>
+        <a class="nav-link nav-link-cpd" href="cpd-catalogue.html">CPD for Schools</a>
+        <a class="nav-link nav-login active" href="members.html#signin">Log in</a>
+        <a class="btn btn-primary nav-cta" href="members.html#signup">Book a session</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Everything below stays hidden until js/dashboard-teacher.js confirms a
+       signed-in teacher, so a signed-out visitor never sees a flash of it. -->
+  <p class="dash-checking" id="dash-checking">Checking your account...</p>
+
+  <main class="dash" id="dash-main" hidden>
+    <section class="dash-hero">
+      <div class="container dash-hero-inner">
+        <div class="dash-greet">
+          <span class="eyebrow">EdCircles &middot; Teacher</span>
+          <h1 id="dash-greeting">Good morning.</h1>
+          <p class="dash-sub" id="dash-quote">Here is what your teaching day looks like, and what is worth preparing first.</p>
+          <div class="dash-hero-actions">
+            <a class="btn btn-primary" href="#book-session">Book a session</a>
+            <button class="btn btn-ghost" type="button" id="dash-signout">Sign out</button>
+          </div>
+        </div>
+
+        <figure class="clock-figure">
+          <!-- Live analogue clock, driven by js/dashboard-teacher.js -->
+          <svg class="clock" viewBox="0 0 100 100" role="img" aria-labelledby="clock-title">
+            <title id="clock-title">Current time</title>
+            <circle class="clock-face" cx="50" cy="50" r="46"/>
+            <circle class="clock-rim" cx="50" cy="50" r="46"/>
+            <g class="clock-ticks">
+              <line class="tick tick-major" x1="50.00" y1="9.00" x2="50.00" y2="17.00"/>
+              <line class="tick" x1="70.50" y1="14.49" x2="68.25" y2="18.39"/>
+              <line class="tick" x1="85.51" y1="29.50" x2="81.61" y2="31.75"/>
+              <line class="tick tick-major" x1="91.00" y1="50.00" x2="83.00" y2="50.00"/>
+              <line class="tick" x1="85.51" y1="70.50" x2="81.61" y2="68.25"/>
+              <line class="tick" x1="70.50" y1="85.51" x2="68.25" y2="81.61"/>
+              <line class="tick tick-major" x1="50.00" y1="91.00" x2="50.00" y2="83.00"/>
+              <line class="tick" x1="29.50" y1="85.51" x2="31.75" y2="81.61"/>
+              <line class="tick" x1="14.49" y1="70.50" x2="18.39" y2="68.25"/>
+              <line class="tick tick-major" x1="9.00" y1="50.00" x2="17.00" y2="50.00"/>
+              <line class="tick" x1="14.49" y1="29.50" x2="18.39" y2="31.75"/>
+              <line class="tick" x1="29.50" y1="14.49" x2="31.75" y2="18.39"/>
+            </g>
+            <line class="hand hand-hour" id="hand-hour" x1="50" y1="52" x2="50" y2="30"/>
+            <line class="hand hand-min" id="hand-min" x1="50" y1="53" x2="50" y2="20"/>
+            <line class="hand hand-sec" id="hand-sec" x1="50" y1="56" x2="50" y2="16"/>
+            <circle class="clock-pin" cx="50" cy="50" r="2.6"/>
+          </svg>
+          <figcaption>
+            <span class="clock-digital" id="clock-digital">--:--</span>
+            <span class="clock-date" id="clock-date">Today</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="container dash-body">
+      <div class="dash-grid">
+        <!-- Today at a glance -->
+        <section class="dash-card sched-card">
+          <header class="dash-card-head">
+            <h2>Today's sessions</h2>
+            <span class="chip-sample" title="Sample sessions">Sample</span>
+          </header>
+          <ul class="sched-list">
+          <li class="sched-row cat-one">
+            <span class="sched-time">09:00</span>
+            <span class="sched-bar" aria-hidden="true"></span>
+            <span class="sched-body"><strong>IB Physics</strong><small>Ananya R. &middot; one to one &middot; 60 min</small></span>
+          </li>
+          <li class="sched-row cat-group">
+            <span class="sched-time">11:30</span>
+            <span class="sched-bar" aria-hidden="true"></span>
+            <span class="sched-body"><strong>IGCSE Maths</strong><small>Group of three &middot; 45 min</small></span>
+          </li>
+          <li class="sched-row cat-feedback">
+            <span class="sched-time">15:00</span>
+            <span class="sched-bar" aria-hidden="true"></span>
+            <span class="sched-body"><strong>Mock exam feedback</strong><small>Daniel K. &middot; one to one &middot; 45 min</small></span>
+          </li>
+          </ul>
+          <ul class="sched-legend">
+            <li class="cat-one"><span aria-hidden="true"></span>One to one</li>
+            <li class="cat-group"><span aria-hidden="true"></span>Group</li>
+            <li class="cat-feedback"><span aria-hidden="true"></span>Marking and feedback</li>
+          </ul>
+          <p class="dash-note">Every session runs over video call. Real bookings appear here as students confirm them.</p>
+        </section>
+
+        <!-- Pinned board -->
+        <section class="dash-card board-card">
+          <header class="dash-card-head">
+            <h2>To prepare</h2>
+            <span class="chip-sample">Sample</span>
+          </header>
+          <div class="board">
+        <article class="sticky sticky-gold" style="--rot:-1.6deg">
+          <span class="pin" aria-hidden="true"></span>
+          <h3>Paper 3 data analysis</h3>
+          <p>Pull two past questions for Ananya to work through.</p>
+          <span class="sticky-meta">Before 09:00</span>
+        </article>
+        <article class="sticky sticky-cyan" style="--rot:1.4deg">
+          <span class="pin" aria-hidden="true"></span>
+          <h3>Quadratics recap</h3>
+          <p>One worksheet, enough for the group of three.</p>
+          <span class="sticky-meta">Before 11:30</span>
+        </article>
+        <article class="sticky sticky-coral" style="--rot:-0.8deg">
+          <span class="pin" aria-hidden="true"></span>
+          <h3>Daniel's mock paper</h3>
+          <p>Finish marking so you can talk it through together.</p>
+          <span class="sticky-meta">Before 15:00</span>
+        </article>
+          </div>
+        </section>
+
+        <!-- The Library, unlocked because this teacher is a member -->
+        <section class="dash-card links-card">
+          <header class="dash-card-head">
+            <h2>Your library</h2>
+            <span class="chip-full">Full access</span>
+          </header>
+          <p class="dash-lead">Member resources are unlocked for you, including the ones the public cannot open.</p>
+          <ul class="quick-links">
+            <li><a href="library.html#resources">Question banks<span class="arrow">&rarr;</span></a></li>
+            <li><a href="library.html#resources">Mark schemes<span class="arrow">&rarr;</span></a></li>
+            <li><a href="library.html#resources">Worksheets<span class="arrow">&rarr;</span></a></li>
+            <li><a href="lesson-plans.html">Lesson plans<span class="arrow">&rarr;</span></a></li>
+            <li><a href="curriculum-resources.html">Curriculum resources<span class="arrow">&rarr;</span></a></li>
+            <li><a href="library.html">Browse the whole library<span class="arrow">&rarr;</span></a></li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Chalkboard -->
+      <section class="chalkboard">
+        <p id="chalk-line">A great team creates magical experiences for our students.</p>
+      </section>
+
+      <div class="dash-grid-3">
+        <!-- Booking, the replacement for the old email placeholder -->
+        <section class="dash-card book-card" id="book-session">
+          <header class="dash-card-head">
+            <h2>Book a session</h2>
+          </header>
+          <p class="dash-lead">Pick what you need. We will email you times that fit around your timetable.</p>
+          <!-- PLACEHOLDER: requests are not stored yet. Wire this to Supabase or
+               a form service so a request reaches the inbox. -->
+          <form class="book-form" id="book-form">
+            <label class="sr-only" for="book-service">Service</label>
+            <select id="book-service" name="service">
+              <option>Career Adviser</option>
+              <option>PD Workshops</option>
+              <option>Paper Moderation</option>
+              <option>CV Building</option>
+              <option>LinkedIn Optimization</option>
+              <option>Teacher Wellbeing</option>
+            </select>
+            <button class="btn btn-primary" type="submit">Request this session</button>
+            <p class="form-note" role="status" id="book-note"></p>
+          </form>
+        </section>
+
+        <!-- Wellness Corner: the quiet room, one click away -->
+        <section class="dash-card well-card">
+          <header class="dash-card-head">
+            <h2>Wellness Corner</h2>
+          </header>
+          <p class="dash-lead">A quiet, private space for a short pause between classes. Nothing here is tracked or shared.</p>
+          <ul class="well-list">
+            <li><span class="well-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><a href="wellness.html"><strong>Take a moment</strong><small>Breathe, stretch, or just sit</small></a></li>
+            <li><span class="well-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><a href="wellness.html"><strong>Reflect privately</strong><small>Saved on your device only</small></a></li>
+          </ul>
+          <a class="btn btn-primary breathe-btn" href="wellness.html">Open Wellness Corner</a>
+        </section>
+
+        <!-- Announcements -->
+        <section class="dash-card ann-card">
+          <header class="dash-card-head">
+            <h2>Your classes</h2>
+            <span class="chip-sample">Sample</span>
+          </header>
+          <ul class="ann-list">
+            <li><span class="ann-dot dot-library" aria-hidden="true"></span><strong>New booking request</strong><small>IB Physics, Thursday at 16:00</small></li>
+            <li><span class="ann-dot dot-staffroom" aria-hidden="true"></span><strong>Ananya sent her working</strong><small>Ahead of this morning's session</small></li>
+            <li><span class="ann-dot dot-classroom" aria-hidden="true"></span><strong>Daniel moved his slot</strong><small>Now 15:00 today</small></li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Workspace: genuinely functional, saved in this browser -->
+      <section class="workspace">
+        <header class="workspace-head">
+          <h2>My workspace</h2>
+          <span class="workspace-hint">Saved on this device</span>
+        </header>
+        <div class="workspace-grid">
+          <div class="ws-col">
+            <h3>My tasks</h3>
+            <ul class="task-list" id="task-list">
+              <li><label><input type="checkbox" data-task="1" /><span>Mark Daniel's mock paper</span></label></li>
+              <li><label><input type="checkbox" data-task="2" /><span>Send Ananya the formula sheet</span></label></li>
+              <li><label><input type="checkbox" data-task="3" /><span>Prepare the quadratics worksheet</span></label></li>
+              <li><label><input type="checkbox" data-task="4" /><span>Update your availability for next week</span></label></li>
+            </ul>
+          </div>
+          <div class="ws-col">
+            <h3>My notes</h3>
+            <textarea id="ws-notes" rows="7" placeholder="Jot anything down. It stays in this browser."></textarea>
+            <span class="ws-saved" id="ws-saved"></span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="dash-strip">
+      <div class="container dash-strip-inner">
+        <p><strong>Daily reminder.</strong> You do not just teach a subject, you shape futures.</p>
+        <p class="dash-strip-help">Need a hand? <a href="contact.html">Talk to us</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src="assets/logo.png" alt="EdCircles" width="900" height="572" />
+          <p class="footer-tagline">Verified education consultants for teachers, students, and schools.</p>
+          <ul class="footer-nav">
+            <li><a href="about.html">About EdCircles</a></li>
+            <li><a href="members.html">Members</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="staffroom.html">The Staffroom</a></h3>
+          <ul>
+          <li><a href="career-adviser.html">Career Adviser</a></li>
+          <li><a href="pd-workshops.html">PD Workshops</a></li>
+          <li><a href="paper-moderation.html">Paper Moderation</a></li>
+          <li><a href="cv-building.html">CV Building</a></li>
+          <li><a href="linkedin-optimization.html">LinkedIn Optimization</a></li>
+          <li><a href="teacher-wellbeing.html">Teacher Wellbeing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="classroom.html">The Classroom</a></h3>
+          <ul>
+          <li><a href="career-counselling.html">Career Counselling</a></li>
+          <li><a href="mock-exams.html">Mock Exams</a></li>
+          <li><a href="one-on-one-tutoring.html">1-on-1 Tutoring</a></li>
+          <li><a href="ib-physics.html">IB Physics</a></li>
+          <li><a href="igcse-maths.html">IGCSE Maths</a></li>
+          <li><a href="exam-resources.html">Exam Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="library.html">The Library</a></h3>
+          <ul>
+          <li><a href="lesson-plans.html">Lesson Plans</a></li>
+          <li><a href="curriculum-resources.html">Curriculum Resources</a></li>
+          <li><a href="inspection-prep.html">Inspection Prep</a></li>
+          <li><a href="safeguarding.html">Safeguarding</a></li>
+          <li><a href="use-of-ai.html">Use of AI</a></li>
+          <li><a href="graphic-design.html">Graphic Design</a></li>
+          <li><a href="cpd-catalogue.html">CPD Catalogue</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 EdCircles. All rights reserved.</span>
+        <span>Every consultant is verified before joining the platform.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/vendor/supabase.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/dashboard-teacher.js"></script>
+</body>
+</html>

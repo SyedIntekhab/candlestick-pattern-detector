@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wellness Corner | EdCircles</title>
+  <meta name="description" content="A quiet, private corner for a short pause between classes." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body class="theme-staffroom wellness-page dash-loading">
+  <header class="w-header">
+    <div class="w-header-inner">
+      <a class="w-back" href="dashboard-teacher.html">
+        <span aria-hidden="true">&larr;</span> Back to dashboard
+      </a>
+      <span class="w-private">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        Private to you
+      </span>
+    </div>
+  </header>
+
+  <p class="dash-checking" id="dash-checking">Opening your quiet corner...</p>
+
+  <main class="w-main" id="w-main" hidden>
+    <!-- Greeting and plant -->
+    <section class="w-hero">
+      <div class="w-hero-text">
+        <h1 id="w-greeting">Good afternoon.</h1>
+        <p class="w-sub">Take a quiet moment before your next class. Nothing here is required, and nothing is saved anywhere but this device.</p>
+      </div>
+      <figure class="plant-figure">
+        <svg class="plant" id="plant" viewBox="0 -16 120 156" role="img" aria-labelledby="plant-title">
+          <title id="plant-title">Your plant</title>
+          <g class="plant-growth" id="plant-growth"></g>
+          <path class="pot" d="M36 104h48l-6 30a4 4 0 0 1-4 3H46a4 4 0 0 1-4-3z"/>
+          <rect class="pot-rim" x="32" y="97" width="56" height="10" rx="3"/>
+        </svg>
+        <figcaption id="plant-caption">Your plant grows a little each time you visit.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Energy check in -->
+    <section class="w-card" aria-labelledby="mood-h">
+      <h2 id="mood-h">How are you feeling?</h2>
+      <div class="mood-row" role="group" aria-labelledby="mood-h">
+          <button class="mood" type="button" data-mood="energised">
+            <span class="mood-dot" aria-hidden="true"></span>
+            <span>Energised</span>
+          </button>
+          <button class="mood" type="button" data-mood="okay">
+            <span class="mood-dot" aria-hidden="true"></span>
+            <span>Okay</span>
+          </button>
+          <button class="mood" type="button" data-mood="tired">
+            <span class="mood-dot" aria-hidden="true"></span>
+            <span>Tired</span>
+          </button>
+          <button class="mood" type="button" data-mood="break">
+            <span class="mood-dot" aria-hidden="true"></span>
+            <span>Need a break</span>
+          </button>
+      </div>
+      <p class="mood-ack" id="mood-ack" role="status"></p>
+    </section>
+
+    <!-- Quick reset -->
+    <section class="w-card" aria-labelledby="reset-h">
+      <h2 id="reset-h">A quick reset</h2>
+      <p class="w-lead">Pick something small. You can stop at any point.</p>
+      <div class="reset-grid">
+        <div class="reset-group">
+          <h3>1 minute</h3>
+            <button class="reset-item" type="button" data-reset="breathe1">
+              <span class="reset-label">Breathe</span>
+              <span class="reset-note">Four counts in, four out</span>
+            </button>
+            <button class="reset-item" type="button" data-reset="shoulders">
+              <span class="reset-label">Relax shoulders</span>
+              <span class="reset-note">Let them drop, slowly</span>
+            </button>
+            <button class="reset-item" type="button" data-reset="water">
+              <span class="reset-label">Drink water</span>
+              <span class="reset-note">A glass, unhurried</span>
+            </button>
+        </div>
+        <div class="reset-group">
+          <h3>3 minutes</h3>
+            <button class="reset-item" type="button" data-reset="breathe3">
+              <span class="reset-label">Guided breathing</span>
+              <span class="reset-note">A longer, slower round</span>
+            </button>
+            <button class="reset-item" type="button" data-reset="stretch">
+              <span class="reset-label">Stretch</span>
+              <span class="reset-note">Neck, arms, back</span>
+            </button>
+            <button class="reset-item" type="button" data-reset="grounding">
+              <span class="reset-label">Grounding</span>
+              <span class="reset-note">Five senses, one at a time</span>
+            </button>
+        </div>
+        <div class="reset-group">
+          <h3>5 minutes</h3>
+            <button class="reset-item" type="button" data-reset="reflect">
+              <span class="reset-label">Short reflection</span>
+              <span class="reset-note">One question, no answer needed</span>
+            </button>
+            <button class="reset-item" type="button" data-reset="calm">
+              <span class="reset-label">Calm reset</span>
+              <span class="reset-note">Quiet, with a slow rhythm</span>
+            </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="w-two">
+      <!-- Reflection journal -->
+      <section class="w-card" aria-labelledby="journal-h">
+        <h2 id="journal-h">Reflection</h2>
+        <p class="w-lead" id="journal-prompt">What helped today feel easier?</p>
+        <label class="sr-only" for="journal">Your reflection</label>
+        <textarea id="journal" rows="7" placeholder="Write as much or as little as you like."></textarea>
+        <div class="journal-foot">
+          <span class="journal-saved" id="journal-saved" role="status"></span>
+          <button class="w-link" type="button" id="new-prompt">Try another prompt</button>
+        </div>
+      </section>
+
+      <!-- Ambient sound -->
+      <section class="w-card" aria-labelledby="sound-h">
+        <h2 id="sound-h">Ambient sound</h2>
+        <p class="w-lead">Nothing plays until you choose. Softly synthesised, so no downloads.</p>
+        <div class="sound-row" role="group" aria-labelledby="sound-h">
+            <button class="sound-opt" type="button" data-sound="rain" aria-pressed="false">Rain</button>
+            <button class="sound-opt" type="button" data-sound="library" aria-pressed="false">Library</button>
+            <button class="sound-opt" type="button" data-sound="nature" aria-pressed="false">Soft nature</button>
+            <button class="sound-opt" type="button" data-sound="cafe" aria-pressed="false">Cafe</button>
+        </div>
+        <div class="sound-controls">
+          <label for="sound-vol">Volume</label>
+          <input type="range" id="sound-vol" min="0" max="100" value="45" />
+          <button class="w-link" type="button" id="sound-stop" hidden>Stop</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="w-two">
+      <!-- Appreciation notes -->
+      <section class="w-card" aria-labelledby="notes-h">
+        <div class="w-card-head">
+          <h2 id="notes-h">Kind words</h2>
+          <span class="chip-sample">Sample</span>
+        </div>
+        <ul class="kind-list">
+          <li><p>"You explained it three different ways until I understood. Thank you."</p><cite>A student, Grade 10</cite></li>
+          <li><p>"She used to dread maths. Now she asks when the next session is."</p><cite>A parent</cite></li>
+          <li><p>"Thank you for being patient with my son through his mocks."</p><cite>A parent</cite></li>
+        </ul>
+        <p class="w-foot-note">Notes shared with you by your school will appear here.</p>
+      </section>
+
+      <!-- Gentle insights, drawn from this device only -->
+      <section class="w-card" aria-labelledby="insight-h">
+        <h2 id="insight-h">Quietly noticed</h2>
+        <ul class="insight-list" id="insight-list"></ul>
+        <p class="w-foot-note">Only you can see this. It never leaves your browser and no one at your school is shown any of it.</p>
+      </section>
+    </div>
+
+    <!-- Inspiration shelf -->
+    <section class="w-card" aria-labelledby="shelf-h">
+      <h2 id="shelf-h">On the shelf</h2>
+      <p class="w-lead">Small, practical things. No motivational speeches.</p>
+      <div class="shelf">
+          <details class="shelf-item">
+            <summary>Resetting a session that has gone flat</summary>
+            <div class="shelf-body"><p>Stop the explanation. Change one thing: share a different page, switch to a blank whiteboard, or ask them to talk you through the last step instead. A short pause and one clear question restarts a session better than repeating yourself louder.</p></div>
+          </details>
+          <details class="shelf-item">
+            <summary>Settling yourself before a hard lesson</summary>
+            <div class="shelf-body"><p>Arrive two minutes early and do nothing with your hands. Put your feet flat, unclench your jaw, and breathe out for longer than you breathe in, four or five times. Decide the first sentence you will say. Walking in with one certain thing steadies the rest.</p></div>
+          </details>
+          <details class="shelf-item">
+            <summary>A breathing guide you can use while teaching</summary>
+            <div class="shelf-body"><p>Breathe in for four, out for six, without moving your shoulders. It is invisible from the front of a room, and the longer out-breath is what calms the nervous system. Three rounds is enough to take the edge off.</p></div>
+          </details>
+          <details class="shelf-item">
+            <summary>When a class has gone badly</summary>
+            <div class="shelf-body"><p>Write one sentence about what actually happened, and one about what you would change. Then close the notebook. The lesson does not need to be re-run in your head all evening, and one written sentence tends to stop the loop better than thinking harder.</p></div>
+          </details>
+      </div>
+    </section>
+
+    <p class="w-leave">That is everything. Close the tab whenever you like, or <a href="dashboard-teacher.html">head back to your dashboard</a>.</p>
+  </main>
+
+  <!-- Reset overlay -->
+  <div class="reset-overlay" id="reset-overlay" hidden>
+    <div class="reset-panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+      <h2 id="reset-title">Breathe</h2>
+      <div class="reset-visual">
+        <span class="reset-orb" id="reset-orb" aria-hidden="true"></span>
+      </div>
+      <p class="reset-cue" id="reset-cue" role="status">Breathe in</p>
+      <p class="reset-timer" id="reset-timer">1:00</p>
+      <button class="btn btn-ghost" type="button" id="reset-done">I am done</button>
+    </div>
+  </div>
+
+  <script src="js/vendor/supabase.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/wellness.js"></script>
+</body>
+</html>

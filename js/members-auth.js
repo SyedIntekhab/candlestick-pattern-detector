@@ -4,18 +4,82 @@
    missing, so a page never breaks because of this script. */
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (typeof supabase === "undefined" || typeof SUPABASE_URL === "undefined") {
+  var authCard = document.getElementById("member-auth-card");
+  if (!authCard) {
     return;
   }
 
-  var client = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-
-  var split = document.querySelector(".member-split");
   var dashboard = document.getElementById("member-dashboard");
   var marketing = document.getElementById("members-marketing");
   var welcome = document.getElementById("dashboard-welcome");
   var roleLabel = document.getElementById("dashboard-role-label");
+  var avatar = document.getElementById("dashboard-avatar");
   var signOutBtn = document.getElementById("sign-out-btn");
+
+  /* --- Pure UI: mode switching (sign in / create account / forgot), the
+     role toggle on sign-up, and show/hide-password. None of this needs
+     Supabase, so it runs even if the client below fails to load. --- */
+
+  function setMode(mode) {
+    authCard.setAttribute("data-mode", mode);
+    authCard.querySelectorAll(".auth-tab").forEach(function (tab) {
+      tab.classList.toggle("active", tab.getAttribute("data-mode") === mode);
+    });
+    authCard.querySelectorAll(".auth-form").forEach(function (form) {
+      form.classList.toggle("hidden", !form.classList.contains("auth-" + mode));
+    });
+  }
+  authCard.querySelectorAll("[data-mode]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      setMode(el.getAttribute("data-mode"));
+    });
+  });
+
+  /* The nav links here as members.html#signin and members.html#signup, so
+     open on the tab the visitor actually asked for. */
+  function modeFromHash() {
+    var hash = (window.location.hash || "").replace("#", "");
+    if (hash === "signup" || hash === "signin" || hash === "forgot") {
+      setMode(hash);
+    }
+  }
+  modeFromHash();
+  window.addEventListener("hashchange", modeFromHash);
+
+  authCard.querySelectorAll(".role-opt").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      authCard.querySelectorAll(".role-opt").forEach(function (b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+    });
+  });
+
+  authCard.querySelectorAll(".field-toggle").forEach(function (toggle) {
+    toggle.addEventListener("click", function () {
+      var input = toggle.parentElement.querySelector("input");
+      var showing = input.type === "text";
+      input.type = showing ? "password" : "text";
+      toggle.querySelector(".icon-eye").classList.toggle("hidden", !showing);
+      toggle.querySelector(".icon-eye-off").classList.toggle("hidden", showing);
+      toggle.setAttribute("aria-label", showing ? "Show password" : "Hide password");
+    });
+  });
+
+  /* --- Supabase-backed behaviour --- */
+
+  if (typeof supabase === "undefined" || typeof SUPABASE_URL === "undefined") {
+    return;
+  }
+  var client = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+  /* Both emails Supabase sends carry a link back to this site, and the link
+     has to be built from wherever the site is actually being served. Deriving
+     it from the current URL means the same code works on the live domain, on
+     a Netlify preview, and on a local server, with no address hard-coded.
+     Every host used here must also be listed under Authentication ->
+     URL Configuration -> Redirect URLs in Supabase, or the link is refused. */
+  function siteUrl(page) {
+    return window.location.origin + window.location.pathname.replace(/[^/]*$/, "") + page;
+  }
 
   function roleOf(user) {
     var meta = user.user_metadata || {};
@@ -34,20 +98,28 @@ document.addEventListener("DOMContentLoaded", function () {
     var meta = user.user_metadata || {};
     var name = meta.full_name || user.email;
     var role = roleOf(user);
+
+    /* Teachers get their own dashboard page. Students stay here on the
+       simple card until their dashboard is built. */
+    if (role === "teacher") {
+      window.location.assign("dashboard-teacher.html");
+      return;
+    }
     if (welcome) {
       welcome.textContent = "Welcome back, " + name + ".";
     }
     if (roleLabel) {
       roleLabel.textContent = role === "teacher" ? "The Staffroom · Member" : "The Classroom · Member";
     }
+    if (avatar) {
+      avatar.textContent = name.trim().charAt(0).toUpperCase() || "?";
+    }
     if (dashboard) {
       dashboard.classList.remove("role-student", "role-teacher");
       dashboard.classList.add("role-" + role);
       dashboard.hidden = false;
     }
-    if (split) {
-      split.hidden = true;
-    }
+    authCard.hidden = true;
     if (marketing) {
       marketing.hidden = true;
     }
@@ -58,9 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (dashboard) {
       dashboard.hidden = true;
     }
-    if (split) {
-      split.hidden = false;
-    }
+    authCard.hidden = false;
     if (marketing) {
       marketing.hidden = false;
     }
@@ -101,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     note.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
   }
 
-  document.querySelectorAll(".auth-form").forEach(function (form) {
+  authCard.querySelectorAll(".auth-form").forEach(function (form) {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
@@ -117,24 +187,33 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       var isSignup = form.classList.contains("auth-signup");
+      var isForgot = form.classList.contains("auth-forgot");
       var emailInput = form.querySelector('input[type="email"]');
-      var passwordInput = form.querySelector('input[type="password"]');
+      var passwordInput = form.querySelector('input[id$="-pass"]');
       var email = emailInput ? emailInput.value : "";
       var password = passwordInput ? passwordInput.value : "";
 
       var request;
-      if (isSignup) {
-        var nameInput = form.querySelector('input[type="text"]');
-        var side = form.closest(".side");
-        var role = side && side.getAttribute("data-side") === "teacher" ? "teacher" : "student";
+      if (isForgot) {
+        request = client.auth.resetPasswordForEmail(email, {
+          redirectTo: siteUrl("reset-password.html"),
+        });
+      } else if (isSignup) {
+        var nameInput = form.querySelector('input[id$="-name"]');
+        var roleBtn = form.querySelector(".role-opt.active");
+        var role = roleBtn && roleBtn.getAttribute("data-role") === "teacher" ? "teacher" : "student";
         request = client.auth.signUp({
           email: email,
           password: password,
           options: {
+            /* full_name and role reach the welcome email as {{ .Data.full_name }}
+               and {{ .Data.role }}, which is how that email knows who it is
+               greeting and which next step to suggest. */
             data: {
               full_name: nameInput ? nameInput.value : "",
               role: role,
             },
+            emailRedirectTo: siteUrl("welcome.html"),
           },
         });
       } else {
@@ -151,8 +230,13 @@ document.addEventListener("DOMContentLoaded", function () {
             setNote(note, result.error.message, true);
             return;
           }
+          if (isForgot) {
+            setNote(note, "Check " + email + " for a link to reset your password. It comes from contact@edcircles.net.");
+            form.reset();
+            return;
+          }
           if (isSignup && !result.data.session) {
-            setNote(note, "Account created. Check " + email + " to confirm your email before signing in.");
+            setNote(note, "Account created. We have sent a welcome email to " + email + " from contact@edcircles.net. Open it to confirm your address, then you are in.");
             form.reset();
             return;
           }

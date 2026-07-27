@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inspection Prep | EdCircles</title>
-  <meta name="description" content="Support ahead of DSIB, Ofsted, CIS, or IB Programme Evaluation visits." />
+  <title>Welcome to EdCircles</title>
+  <meta name="description" content="Your EdCircles account is confirmed. Here is what to do next." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
@@ -18,30 +18,50 @@
       <nav class="nav-links" aria-label="Main">
         <a class="nav-link" href="staffroom.html"><span class="nav-dot dot-staffroom"></span>The Staffroom</a>
         <a class="nav-link" href="classroom.html"><span class="nav-dot dot-classroom"></span>The Classroom</a>
-        <a class="nav-link active" href="library.html"><span class="nav-dot dot-library"></span>The Library</a>
+        <a class="nav-link" href="library.html"><span class="nav-dot dot-library"></span>The Library</a>
         <a class="nav-link nav-link-cpd" href="cpd-catalogue.html">CPD for Schools</a>
-        <a class="nav-link nav-login" href="members.html#signin">Log in</a>
+        <a class="nav-link nav-login active" href="members.html#signin">Log in</a>
         <a class="btn btn-primary nav-cta" href="members.html#signup">Book a session</a>
       </nav>
     </div>
   </header>
 
-  <main class="item-main">
-    <span class="eyebrow anim-1">The Library &middot; Whole-School Training</span>
-    <h1 class="anim-2">Inspection Prep</h1>
-    <p class="lead anim-3">Focused, practical support ahead of DSIB, Ofsted, CIS, or IB Programme Evaluation visits, from consultants who understand what inspectors are actually looking for at each stage. Covers documentation, lesson readiness, and staff preparation, not just a generic checklist.</p>
-
-    <div class="coming-soon anim-4">
-      <h2>More details coming soon</h2>
-      <p>This service is being set up now. Leave your email and we will let you know as soon as it is ready to book.</p>
-      <!-- PLACEHOLDER: this form is not wired to a backend yet. Connect it to a mailing list or form service before launch. -->
-      <form class="email-capture">
-        <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
-        <button class="btn btn-primary" type="submit">Notify me</button>
-      </form>
-      <p class="form-note" role="status">Thank you. We will be in touch when this opens.</p>
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <span class="eyebrow anim-1">Your account</span>
+      <h1 class="anim-2" id="welcome-title">You're in.</h1>
+      <p class="anim-3" id="welcome-sub">Your email is confirmed and your EdCircles account is live. Here is the short version of what you can do with it.</p>
     </div>
-  </main>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="method-grid stagger welcome-grid" id="welcome-steps">
+        <div class="method-card reveal" data-for="both">
+          <h3>1. Book your first session</h3>
+          <p>Tell us what you need and we match you with a verified consultant. Times come back by email, so nothing depends on you catching us online.</p>
+          <p><a href="career-counselling.html">See Career Counselling</a></p>
+        </div>
+        <div class="method-card reveal" data-for="student">
+          <h3>2. Open The Library</h3>
+          <p>The free shelf is open to everyone. Now that you have an account, the member shelf unlocks too.</p>
+          <p><a href="library.html#resources">Go to The Library</a></p>
+        </div>
+        <div class="method-card reveal" data-for="teacher" hidden>
+          <h3>2. Open your dashboard</h3>
+          <p>Your sessions for the day, what to prepare for each one, and your workspace notes all live in one place.</p>
+          <p><a href="dashboard-teacher.html">Go to your dashboard</a></p>
+        </div>
+        <div class="method-card reveal" data-for="both">
+          <h3>3. Keep an eye on your inbox</h3>
+          <p>Session confirmations, times, and follow-ups come from contact@edcircles.net. Add it to your contacts so nothing lands in spam.</p>
+        </div>
+      </div>
+      <div class="welcome-cta reveal">
+        <a class="btn btn-primary" id="welcome-go" href="members.html">Go to your account</a>
+      </div>
+    </div>
+  </section>
 
   <footer class="footer">
     <div class="container">
@@ -99,5 +119,8 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/vendor/supabase.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/welcome.js"></script>
 </body>
 </html>

@@ -20,7 +20,8 @@
         <a class="nav-link active" href="classroom.html"><span class="nav-dot dot-classroom"></span>The Classroom</a>
         <a class="nav-link" href="library.html"><span class="nav-dot dot-library"></span>The Library</a>
         <a class="nav-link nav-link-cpd" href="cpd-catalogue.html">CPD for Schools</a>
-        <a class="btn btn-primary nav-cta" href="career-counselling.html">Book a session</a>
+        <a class="nav-link nav-login" href="members.html#signin">Log in</a>
+        <a class="btn btn-primary nav-cta" href="members.html#signup">Book a session</a>
       </nav>
     </div>
   </header>
@@ -83,14 +84,12 @@
       <h2>Book a session</h2>
       <div class="booking-embed">
         <!-- CALENDLY EMBED GOES HERE -->
-        <!-- Replace this block with the inline Calendly embed code once the "Career Counselling"
-             event type is live (Zoom as the call location, free-tier 1-on-1, no time cap). -->
-        <p>Booking calendar coming soon. Leave your email and we will send you the booking link the day it opens.</p>
-        <form class="email-capture">
-          <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
-          <button class="btn btn-primary" type="submit">Send me the link</button>
-        </form>
-        <p class="form-note" role="status">Thank you. We will send you the booking link as soon as it is live.</p>
+        <!-- Until the Calendly event type is live, booking runs through a free
+             member account: the visitor signs up, requests a session from their
+             dashboard, and we email the details back directly. -->
+        <p class="booking-lead">Booking runs through a free EdCircles account. Create one, request your session, and we will email you the details and a time that works.</p>
+        <a class="btn btn-primary" href="members.html#signup">Create an account to book</a>
+        <p class="booking-alt">Already a member? <a href="members.html#signin">Sign in to book</a>.</p>
       </div>
     </section>
 

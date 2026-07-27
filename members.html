@@ -20,138 +20,122 @@
         <a class="nav-link" href="classroom.html"><span class="nav-dot dot-classroom"></span>The Classroom</a>
         <a class="nav-link" href="library.html"><span class="nav-dot dot-library"></span>The Library</a>
         <a class="nav-link nav-link-cpd" href="cpd-catalogue.html">CPD for Schools</a>
-        <a class="btn btn-primary nav-cta" href="career-counselling.html">Book a session</a>
+        <a class="nav-link nav-login active" href="members.html#signin">Log in</a>
+        <a class="btn btn-primary nav-cta" href="members.html#signup">Book a session</a>
       </nav>
     </div>
   </header>
 
   <h1 class="sr-only">Members</h1>
 
-  <!-- Shown instead of the picker once Supabase confirms a session exists.
-       See js/members-auth.js. -->
-  <section class="member-dashboard" id="member-dashboard" hidden>
-    <div class="container dashboard-inner">
-      <span class="eyebrow" id="dashboard-role-label">Member</span>
-      <h2 id="dashboard-welcome">Welcome back.</h2>
-      <p class="dashboard-sub">Your account is set up. Bookings, resources, and session history land here next.</p>
-      <button class="btn btn-ghost" type="button" id="sign-out-btn">Sign out</button>
+  <section class="auth-page">
+    <div class="auth-bg" aria-hidden="true">
+<span class="float-doodle" style="top:10%; left:8%; width:46px; --dur:11s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l18-7-5.5 16-4-6.5z"/><path d="M11.5 14.5L21 5"/></svg></span>
+<span class="float-doodle" style="top:16%; right:10%; width:40px; --dur:14s; --delay:1.2s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10.5 5 8 4.5 4.5 4.8v13.4C8 17.9 10.5 18.4 12 19.7c1.5-1.3 4-1.8 7.5-1.5V4.8C16 4.5 13.5 5 12 6.5z"/><path d="M12 6.5v13.2"/></svg></span>
+<span class="float-doodle" style="bottom:24%; left:12%; width:32px; --dur:9s; --delay:.6s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 5.9L12 16.4 6.7 19.3l1.2-5.9L3.4 9.3l6-.7z"/></svg></span>
+<span class="float-doodle" style="bottom:12%; right:14%; width:38px; --dur:12.5s; --delay:2s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5l4 4L9 19l-5 1 1-5z"/><path d="M13 7l4 4"/></svg></span>
+<span class="float-doodle" style="top:56%; left:5%; width:34px; --dur:12s; --delay:1.6s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 8.4c1.9.6 3 2.4 3 4.6 0 3.4-2.5 7-4.9 7-.6 0-1-.2-1.6-.2s-1 .2-1.6.2c-2.4 0-4.9-3.6-4.9-7 0-2.2 1.1-4 3-4.6 1-.3 2.2-.1 3.5.5 1.3-.6 2.5-.8 3.5-.5z"/><path d="M12 8V5.5c0-1.5 1-2.5 2.5-3"/></svg></span>
+<span class="float-doodle" style="top:64%; right:6%; width:36px; --dur:10s; --delay:2.4s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8.5h10V16a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z"/><path d="M15 10.5h2a2.5 2.5 0 0 1 0 5h-2M7.5 5.5v-2M10.5 5.5V3"/></svg></span>
+<span class="float-doodle" style="top:8%; left:44%; width:26px; --dur:9.5s; --delay:3s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span>
     </div>
-  </section>
 
-  <section class="member-split choose" id="member-split">
-    <!-- Desktop-only living background: the concept promo video, gated by JS
-         to viewport width and prefers-reduced-motion. Never fetched on mobile
-         (preload="none", no autoplay attribute) so it costs nothing there. -->
-    <video class="split-video" muted loop playsinline preload="none" poster="assets/video/members-bg-poster.jpg" aria-hidden="true">
-      <source src="assets/video/members-bg.webm" type="video/webm" />
-      <source src="assets/video/members-bg.mp4" type="video/mp4" />
-    </video>
-    <div class="side side-student" data-side="student">
-      <div class="side-bg" aria-hidden="true">
-<span class="float-doodle" style="top:12%; left:10%; width:52px; --dur:11s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l18-7-5.5 16-4-6.5z"/><path d="M11.5 14.5L21 5"/></svg></span>
-<span class="float-doodle" style="top:22%; right:14%; width:44px; --dur:14s; --delay:1.2s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10.5 5 8 4.5 4.5 4.8v13.4C8 17.9 10.5 18.4 12 19.7c1.5-1.3 4-1.8 7.5-1.5V4.8C16 4.5 13.5 5 12 6.5z"/><path d="M12 6.5v13.2"/></svg></span>
-<span class="float-doodle" style="bottom:30%; left:16%; width:34px; --dur:9s; --delay:.6s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 5.9L12 16.4 6.7 19.3l1.2-5.9L3.4 9.3l6-.7z"/></svg></span>
-<span class="float-doodle" style="bottom:14%; right:20%; width:40px; --dur:12.5s; --delay:2s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5l4 4L9 19l-5 1 1-5z"/><path d="M13 7l4 4"/></svg></span>
-<span class="float-doodle" style="top:52%; left:6%; width:38px; --dur:15s; --delay:3s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8 7.5h8M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg></span>
-      </div>
-      <div class="side-content">
-        <span class="eyebrow">The Classroom &middot; Members</span>
-        <h2 class="side-title">I am a student</h2>
-        <p class="side-motto">Small steps. Big dreams.<br />Brighter tomorrows.</p>
-        <button class="btn btn-primary side-choose" type="button" data-side="student">Continue as a student</button>
-      </div>
-      <div class="auth-card">
-        <!-- PLACEHOLDER: these forms are interface only. Wire them to a real
-             auth service before accounts go live; nothing is stored today. -->
+    <div class="auth-shell">
+      <!-- Signed-out: sign in, create account, or reset password.
+           PLACEHOLDER: these forms are wired to Supabase; see js/members-auth.js. -->
+      <div class="auth-card-v2" id="member-auth-card" data-mode="signin">
+        <div class="auth-logo">
+          <span class="auth-logo-ring" aria-hidden="true"></span>
+          <svg class="lockup-orbit" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <path class="orbit-arc orbit-a" d="M8 62 A44 44 0 0 1 50 6"/>
+            <path class="orbit-arc orbit-b" d="M92 38 A44 44 0 0 1 50 94"/>
+          </svg>
+          <span class="auth-logo-word">EdCircles</span>
+        </div>
+
         <div class="auth-tabs" role="tablist">
           <button class="auth-tab active" type="button" data-mode="signin">Sign in</button>
           <button class="auth-tab" type="button" data-mode="signup">Create account</button>
         </div>
+
         <form class="auth-form auth-signin">
-          <div class="field">
-            <label for="student-si-email">Email</label>
-            <input id="student-si-email" type="email" autocomplete="email" required />
+          <p class="auth-lead">Welcome back. Sign in to pick up where you left off.</p>
+          <div class="field-icon">
+            <span class="field-icon-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <label class="sr-only" for="auth-si-email">Email</label>
+            <input id="auth-si-email" type="email" placeholder="Email" autocomplete="email" required />
           </div>
-          <div class="field">
-            <label for="student-si-pass">Password</label>
-            <input id="student-si-pass" type="password" autocomplete="current-password" required />
+          <div class="field-icon">
+            <span class="field-icon-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+            <label class="sr-only" for="auth-si-pass">Password</label>
+            <input id="auth-si-pass" type="password" placeholder="Password" autocomplete="current-password" required />
+            <button type="button" class="field-toggle" aria-label="Show password">
+              <span class="icon-eye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
+              <span class="icon-eye-off hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.2A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.1M6.5 6.6C3.9 8.3 2 12 2 12s3.5 7 10 7c1.2 0 2.3-.2 3.3-.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></span>
+            </button>
           </div>
+          <button class="link-forgot" type="button" data-mode="forgot">Forgot password?</button>
           <button class="btn btn-primary" type="submit">Sign in</button>
-          <p class="form-note" role="status">Member accounts open very soon. This form goes live the day they do.</p>
+          <p class="form-note" role="status"></p>
         </form>
+
         <form class="auth-form auth-signup hidden">
-          <div class="field">
-            <label for="student-su-name">Name</label>
-            <input id="student-su-name" type="text" autocomplete="name" required />
+          <p class="auth-lead">A free account for one side of the classroom. Pick yours.</p>
+          <div class="role-toggle" role="radiogroup" aria-label="I am a">
+            <button type="button" class="role-opt active" data-role="student">
+              <span class="role-dot" aria-hidden="true"></span>Student
+            </button>
+            <button type="button" class="role-opt" data-role="teacher">
+              <span class="role-dot" aria-hidden="true"></span>Teacher
+            </button>
           </div>
-          <div class="field">
-            <label for="student-su-email">Email</label>
-            <input id="student-su-email" type="email" autocomplete="email" required />
+          <div class="field-icon">
+            <span class="field-icon-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+            <label class="sr-only" for="auth-su-name">Name</label>
+            <input id="auth-su-name" type="text" placeholder="Name" autocomplete="name" required />
           </div>
-          <div class="field">
-            <label for="student-su-pass">Choose a password</label>
-            <input id="student-su-pass" type="password" autocomplete="new-password" required />
+          <div class="field-icon">
+            <span class="field-icon-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <label class="sr-only" for="auth-su-email">Email</label>
+            <input id="auth-su-email" type="email" placeholder="Email" autocomplete="email" required />
+          </div>
+          <div class="field-icon">
+            <span class="field-icon-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+            <label class="sr-only" for="auth-su-pass">Choose a password</label>
+            <input id="auth-su-pass" type="password" placeholder="Choose a password" autocomplete="new-password" required />
+            <button type="button" class="field-toggle" aria-label="Show password">
+              <span class="icon-eye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
+              <span class="icon-eye-off hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.2A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.1M6.5 6.6C3.9 8.3 2 12 2 12s3.5 7 10 7c1.2 0 2.3-.2 3.3-.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></span>
+            </button>
           </div>
           <button class="btn btn-primary" type="submit">Create account</button>
-          <p class="form-note" role="status">Member accounts open very soon. This form goes live the day they do.</p>
+          <p class="form-note" role="status"></p>
         </form>
-        <button class="switch-link" type="button" data-side="teacher">I am a teacher instead</button>
+
+        <form class="auth-form auth-forgot hidden">
+          <p class="auth-lead">Enter your email and we'll send a reset link.</p>
+          <div class="field-icon">
+            <span class="field-icon-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <label class="sr-only" for="auth-fp-email">Email</label>
+            <input id="auth-fp-email" type="email" placeholder="Email" autocomplete="email" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Send reset link</button>
+          <p class="form-note" role="status"></p>
+          <button class="link-forgot" type="button" data-mode="signin">Back to sign in</button>
+        </form>
       </div>
-      <button class="side-mini" type="button" data-side="student"><span>I am a student instead</span></button>
-    </div>
-    <div class="seam" aria-hidden="true"></div>
-    <div class="side side-teacher" data-side="teacher">
-      <div class="side-bg" aria-hidden="true">
-<span class="float-doodle" style="top:14%; right:12%; width:46px; --dur:12s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 8.4c1.9.6 3 2.4 3 4.6 0 3.4-2.5 7-4.9 7-.6 0-1-.2-1.6-.2s-1 .2-1.6.2c-2.4 0-4.9-3.6-4.9-7 0-2.2 1.1-4 3-4.6 1-.3 2.2-.1 3.5.5 1.3-.6 2.5-.8 3.5-.5z"/><path d="M12 8V5.5c0-1.5 1-2.5 2.5-3"/></svg></span>
-<span class="float-doodle" style="top:26%; left:12%; width:44px; --dur:10s; --delay:1.5s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8.5h10V16a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z"/><path d="M15 10.5h2a2.5 2.5 0 0 1 0 5h-2M7.5 5.5v-2M10.5 5.5V3"/></svg></span>
-<span class="float-doodle" style="bottom:32%; right:18%; width:48px; --dur:14s; --delay:.8s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4M7 8h7M7 11h4"/></svg></span>
-<span class="float-doodle" style="bottom:14%; left:18%; width:34px; --dur:9.5s; --delay:2.4s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span>
-<span class="float-doodle" style="top:54%; right:7%; width:42px; --dur:15.5s; --delay:3.4s;" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5h16M5.5 19.5V8h4v11.5M10.5 19.5V5h4v14.5M15.5 19.5V10h3.5v9.5"/></svg></span>
-      </div>
-      <div class="side-content">
-        <span class="eyebrow">The Staffroom &middot; Members</span>
-        <h2 class="side-title">I am a teacher</h2>
-        <p class="side-motto">Great teachers.<br />Stronger tomorrows.</p>
-        <button class="btn btn-primary side-choose" type="button" data-side="teacher">Continue as a teacher</button>
-      </div>
-      <div class="auth-card">
-        <!-- PLACEHOLDER: these forms are interface only. Wire them to a real
-             auth service before accounts go live; nothing is stored today. -->
-        <div class="auth-tabs" role="tablist">
-          <button class="auth-tab active" type="button" data-mode="signin">Sign in</button>
-          <button class="auth-tab" type="button" data-mode="signup">Create account</button>
+
+      <!-- Signed-in: shown instead of the card above once Supabase confirms
+           a session exists. See js/members-auth.js. -->
+      <div class="auth-card-v2 dashboard-card" id="member-dashboard" hidden>
+        <div class="auth-logo">
+          <span class="auth-logo-ring" aria-hidden="true"></span>
+          <span class="dashboard-avatar" id="dashboard-avatar" aria-hidden="true"></span>
         </div>
-        <form class="auth-form auth-signin">
-          <div class="field">
-            <label for="teacher-si-email">Email</label>
-            <input id="teacher-si-email" type="email" autocomplete="email" required />
-          </div>
-          <div class="field">
-            <label for="teacher-si-pass">Password</label>
-            <input id="teacher-si-pass" type="password" autocomplete="current-password" required />
-          </div>
-          <button class="btn btn-primary" type="submit">Sign in</button>
-          <p class="form-note" role="status">Member accounts open very soon. This form goes live the day they do.</p>
-        </form>
-        <form class="auth-form auth-signup hidden">
-          <div class="field">
-            <label for="teacher-su-name">Name</label>
-            <input id="teacher-su-name" type="text" autocomplete="name" required />
-          </div>
-          <div class="field">
-            <label for="teacher-su-email">Email</label>
-            <input id="teacher-su-email" type="email" autocomplete="email" required />
-          </div>
-          <div class="field">
-            <label for="teacher-su-pass">Choose a password</label>
-            <input id="teacher-su-pass" type="password" autocomplete="new-password" required />
-          </div>
-          <button class="btn btn-primary" type="submit">Create account</button>
-          <p class="form-note" role="status">Member accounts open very soon. This form goes live the day they do.</p>
-        </form>
-        <button class="switch-link" type="button" data-side="student">I am a student instead</button>
+        <span class="eyebrow" id="dashboard-role-label">Member</span>
+        <h2 id="dashboard-welcome">Welcome back.</h2>
+        <p class="dashboard-sub">Your account is set up. Bookings, resources, and session history land here next.</p>
+        <button class="btn btn-ghost" type="button" id="sign-out-btn">Sign out</button>
       </div>
-      <button class="side-mini" type="button" data-side="teacher"><span>I am a teacher instead</span></button>
     </div>
   </section>
 

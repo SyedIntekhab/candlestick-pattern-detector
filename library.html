@@ -20,7 +20,8 @@
         <a class="nav-link" href="classroom.html"><span class="nav-dot dot-classroom"></span>The Classroom</a>
         <a class="nav-link active" href="library.html"><span class="nav-dot dot-library"></span>The Library</a>
         <a class="nav-link nav-link-cpd" href="cpd-catalogue.html">CPD for Schools</a>
-        <a class="btn btn-primary nav-cta" href="career-counselling.html">Book a session</a>
+        <a class="nav-link nav-login" href="members.html#signin">Log in</a>
+        <a class="btn btn-primary nav-cta" href="members.html#signup">Book a session</a>
       </nav>
     </div>
   </header>
@@ -83,6 +84,101 @@
     </div>
   </section>
 
+  <section class="section section-alt" id="resources">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Resource library</h2>
+        <p>Some resources are open to everyone. The rest unlock with a free member account, and teachers get all of them.</p>
+      </div>
+      <div class="res-grid stagger">
+        <article class="res-card res-free" data-access="free">
+          <span class="res-badge">Free for everyone</span>
+          <h3>Lesson plan template</h3>
+          <p>A one page planner you can adapt for any subject or year group.</p>
+          <span class="res-meta">Template</span>
+          <div class="res-action">
+            <a class="res-open" href="members.html#signup">Open resource</a>
+            <p class="res-note" role="status" hidden>This resource is being prepared. It will open from here once the file is uploaded.</p>
+          </div>
+        </article>
+        <article class="res-card res-free" data-access="free">
+          <span class="res-badge">Free for everyone</span>
+          <h3>Feedback phrase bank</h3>
+          <p>Comments that tell a student something useful, sorted by what you are marking.</p>
+          <span class="res-meta">Reference</span>
+          <div class="res-action">
+            <a class="res-open" href="members.html#signup">Open resource</a>
+            <p class="res-note" role="status" hidden>This resource is being prepared. It will open from here once the file is uploaded.</p>
+          </div>
+        </article>
+        <article class="res-card res-free" data-access="free">
+          <span class="res-badge">Free for everyone</span>
+          <h3>Starter question set</h3>
+          <p>Twenty warm up questions to open a session while everyone settles.</p>
+          <span class="res-meta">Sample pack</span>
+          <div class="res-action">
+            <a class="res-open" href="members.html#signup">Open resource</a>
+            <p class="res-note" role="status" hidden>This resource is being prepared. It will open from here once the file is uploaded.</p>
+          </div>
+        </article>
+        <article class="res-card res-member" data-access="member">
+          <span class="res-badge">Members only</span>
+          <h3>Full question banks</h3>
+          <p>Question sets by topic and difficulty across IB, IGCSE and Cambridge, with mark schemes.</p>
+          <span class="res-meta">Question bank</span>
+          <div class="res-action">
+            <a class="res-open" href="members.html#signup">Sign up to unlock</a>
+            <p class="res-note" role="status" hidden>This resource is being prepared. It will open from here once the file is uploaded.</p>
+          </div>
+        </article>
+        <article class="res-card res-member" data-access="member">
+          <span class="res-badge">Members only</span>
+          <h3>Mark schemes and rubrics</h3>
+          <p>The marking side of the same papers, written the way an examiner reads them.</p>
+          <span class="res-meta">Assessment</span>
+          <div class="res-action">
+            <a class="res-open" href="members.html#signup">Sign up to unlock</a>
+            <p class="res-note" role="status" hidden>This resource is being prepared. It will open from here once the file is uploaded.</p>
+          </div>
+        </article>
+        <article class="res-card res-member" data-access="member">
+          <span class="res-badge">Members only</span>
+          <h3>Worksheet library</h3>
+          <p>Printable and screen friendly worksheets, ready to send before a session.</p>
+          <span class="res-meta">Worksheets</span>
+          <div class="res-action">
+            <a class="res-open" href="members.html#signup">Sign up to unlock</a>
+            <p class="res-note" role="status" hidden>This resource is being prepared. It will open from here once the file is uploaded.</p>
+          </div>
+        </article>
+        <article class="res-card res-member" data-access="member">
+          <span class="res-badge">Members only</span>
+          <h3>Unit planning pack</h3>
+          <p>Schemes of work and unit plans you can hand over without a briefing.</p>
+          <span class="res-meta">Planning</span>
+          <div class="res-action">
+            <a class="res-open" href="members.html#signup">Sign up to unlock</a>
+            <p class="res-note" role="status" hidden>This resource is being prepared. It will open from here once the file is uploaded.</p>
+          </div>
+        </article>
+        <article class="res-card res-member" data-access="member">
+          <span class="res-badge">Members only</span>
+          <h3>Revision materials</h3>
+          <p>Condensed revision notes and practice papers for the run up to exams.</p>
+          <span class="res-meta">Revision</span>
+          <div class="res-action">
+            <a class="res-open" href="members.html#signup">Sign up to unlock</a>
+            <p class="res-note" role="status" hidden>This resource is being prepared. It will open from here once the file is uploaded.</p>
+          </div>
+        </article>
+      </div>
+      <p class="res-foot" id="res-foot">
+        <span class="res-foot-locked">Locked resources open as soon as you have an account. <a href="members.html#signup">Create one free</a>.</span>
+        <span class="res-foot-open" hidden>Everything here is unlocked for you.</span>
+      </p>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -139,5 +235,8 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/vendor/supabase.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/library-access.js"></script>
 </body>
 </html>
