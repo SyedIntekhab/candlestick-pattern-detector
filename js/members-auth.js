@@ -76,9 +76,21 @@ document.addEventListener("DOMContentLoaded", function () {
      it from the current URL means the same code works on the live domain, on
      a Netlify preview, and on a local server, with no address hard-coded.
      Every host used here must also be listed under Authentication ->
-     URL Configuration -> Redirect URLs in Supabase, or the link is refused. */
+     URL Configuration -> Redirect URLs in Supabase, or the link is refused.
+
+     A page opened straight from disk (double-clicked, or a file:// address)
+     has no real origin: Chrome and Firefox both report it as the literal
+     string "null", which would otherwise get baked into the emailed link and
+     send the confirmation button nowhere. In that case, and on any other
+     origin that is not http(s), return nothing rather than something broken.
+     Supabase then falls back to whatever Site URL is configured in its own
+     dashboard, which is where a real link should be pointing from anyway. */
   function siteUrl(page) {
-    return window.location.origin + window.location.pathname.replace(/[^/]*$/, "") + page;
+    var origin = window.location.origin;
+    if (!/^https?:\/\//.test(origin)) {
+      return undefined;
+    }
+    return origin + window.location.pathname.replace(/[^/]*$/, "") + page;
   }
 
   function roleOf(user) {
