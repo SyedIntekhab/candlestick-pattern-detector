@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Members | EdCircles</title>
-  <meta name="description" content="Choose your side of the classroom: student or teacher. EdCircles member accounts are on their way." />
+  <meta name="description" content="Sign in or create a free EdCircles member account as a student or a teacher." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
@@ -26,6 +26,18 @@
   </header>
 
   <h1 class="sr-only">Members</h1>
+
+  <!-- Shown instead of the picker once Supabase confirms a session exists.
+       See js/members-auth.js. -->
+  <section class="member-dashboard" id="member-dashboard" hidden>
+    <div class="container dashboard-inner">
+      <span class="eyebrow" id="dashboard-role-label">Member</span>
+      <h2 id="dashboard-welcome">Welcome back.</h2>
+      <p class="dashboard-sub">Your account is set up. Bookings, resources, and session history land here next.</p>
+      <button class="btn btn-ghost" type="button" id="sign-out-btn">Sign out</button>
+    </div>
+  </section>
+
   <section class="member-split choose" id="member-split">
     <!-- Desktop-only living background: the concept promo video, gated by JS
          to viewport width and prefers-reduced-motion. Never fetched on mobile
@@ -143,10 +155,10 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="members-marketing">
     <div class="container">
       <div class="section-head reveal">
-        <h2>What a member account will include</h2>
+        <h2>What a member account includes</h2>
       </div>
       <div class="method-grid stagger members-grid">
         <div class="method-card reveal">
@@ -161,16 +173,6 @@
           <h3>First through the door</h3>
           <p>Members hear first when a new consultant, subject, or programme opens for booking.</p>
         </div>
-      </div>
-
-      <div class="coming-soon members-card reveal">
-        <h2>Be first through the door</h2>
-        <p>Accounts are being built now. Leave your email and we will invite you the day they open.</p>
-        <form class="email-capture">
-          <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
-          <button class="btn btn-primary" type="submit">Invite me</button>
-        </form>
-        <p class="form-note" role="status">Thank you. Your invitation will be in the first batch.</p>
       </div>
     </div>
   </section>
@@ -231,5 +233,8 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/vendor/supabase.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/members-auth.js"></script>
 </body>
 </html>

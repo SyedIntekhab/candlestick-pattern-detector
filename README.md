@@ -44,11 +44,41 @@ cpd-catalogue.html          CPD for Schools: three in-service programmes
 about.html                  vision, mission, what we do, testimonials (placeholder)
 faq.html                    accordion FAQ (extend by copying a .faq-item block)
 contact.html                contact form (placeholder backend) and details
+members.html                student/teacher sign in and sign up, backed by Supabase Auth
 *.html                      individual service placeholder pages
 styles/main.css             all styles, token driven (edit colors at the top)
-js/main.js                  mobile nav toggle and placeholder email forms
+js/main.js                  nav, FAQ accordion, member picker UI, placeholder email forms
+js/supabase-config.js       Project URL and publishable key (safe to commit, see below)
+js/members-auth.js          sign up / sign in / sign out logic for members.html
+js/vendor/supabase.js       vendored Supabase JS client (no CDN dependency)
 assets/favicon.svg          pie favicon
 ```
+
+## Member accounts (Supabase)
+
+`members.html` has real, working sign-up and sign-in, backed by Supabase Auth. No
+build step is involved: `js/vendor/supabase.js` is the official client library
+downloaded once and committed as a plain script, loaded before
+`js/members-auth.js` on that page only.
+
+- **Config**: `js/supabase-config.js` holds the Project URL and the
+  **publishable key**. That key is designed to be public (Supabase's own
+  dashboard labels it "safe to use in a browser"), so it's fine committed here.
+  The **secret key** must never go in this file, or anywhere else client-side.
+- **What's stored**: sign-up collects name, email, and password. Name and a
+  `role` (`student` or `teacher`, set by which side of the picker was used)
+  are saved to Supabase's built-in `user_metadata`, no extra database table
+  yet. `members.html` shows a real "Welcome back" dashboard with a Sign Out
+  button once Supabase confirms a session.
+- **Email confirmation**: if the Supabase project has "Confirm email" enabled
+  (the default), a new sign-up won't have a session immediately; the page
+  shows a message asking the visitor to check their email instead of signing
+  them in right away. This is expected and needs no code change either way.
+- **Testing note**: the claude.ai Artifact preview link runs under a strict
+  content security policy that blocks calls to external hosts, so sign-up and
+  sign-in will always show a connection error there by design. Everything
+  works normally once the site is actually deployed (Netlify, etc.) with real
+  internet access.
 
 ## Editing guide
 
@@ -62,3 +92,4 @@ assets/favicon.svg          pie favicon
 2. The Calendly inline embed code (marked `CALENDLY EMBED GOES HERE`)
 3. A mailing list or form service for the email capture forms (they currently confirm but store nothing)
 4. Decision on whether to show a price on the Career Counselling page
+5. Decide whether members need more than name/email/role at sign-up (a proper `profiles` table with Row Level Security, if so)

@@ -116,6 +116,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  /* Tab switching (Sign in / Create account) is pure UI and lives here.
+     The forms themselves submit to Supabase; see js/members-auth.js,
+     loaded only on this page. */
   split.querySelectorAll(".auth-card").forEach(function (card) {
     card.querySelectorAll(".auth-tab").forEach(function (tab) {
       tab.addEventListener("click", function () {
@@ -123,15 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
         tab.classList.add("active");
         card.querySelector(".auth-signin").classList.toggle("hidden", tab.getAttribute("data-mode") !== "signin");
         card.querySelector(".auth-signup").classList.toggle("hidden", tab.getAttribute("data-mode") !== "signup");
-      });
-    });
-    card.querySelectorAll(".auth-form").forEach(function (form) {
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var note = form.querySelector(".form-note");
-        if (note) {
-          note.classList.add("shown");
-        }
       });
     });
   });

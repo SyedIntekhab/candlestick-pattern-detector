@@ -557,6 +557,8 @@ img, svg { max-width: 100%; }
   color: var(--role-text, var(--ink));
 }
 .form-note.shown { display: block; }
+.form-note.error { color: var(--classroom-text); }
+.btn:disabled { opacity: 0.65; cursor: default; transform: none; box-shadow: none; }
 
 /* ==========================================================================
    Career counselling page
@@ -1444,7 +1446,16 @@ img, svg { max-width: 100%; }
 
 /* Members page */
 .members-grid { grid-template-columns: repeat(3, 1fr); }
-.members-card { max-width: 640px; margin: 2.6rem auto 0; }
+
+/* Signed-in dashboard, shown in place of the picker once a session is
+   confirmed. See js/members-auth.js. */
+.member-dashboard { padding: 4.5rem 0 4rem; text-align: center; }
+.member-dashboard.role-student { background: linear-gradient(180deg, var(--classroom-tint), var(--paper) 130%); }
+.member-dashboard.role-teacher { background: linear-gradient(180deg, var(--staffroom-tint), var(--paper) 130%); }
+.member-dashboard.role-student #dashboard-role-label { color: var(--classroom-text); }
+.member-dashboard.role-teacher #dashboard-role-label { color: var(--staffroom-text); }
+.dashboard-inner h2 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); }
+.dashboard-sub { max-width: 52ch; margin: 1rem auto 1.7rem; color: var(--ink-soft); }
 
 @media (max-width: 900px) {
   .about-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -1462,6 +1473,10 @@ img, svg { max-width: 100%; }
   min-height: calc(100vh - 68px);
   overflow: hidden;
 }
+/* Its own display: flex above would otherwise beat the browser's default
+   [hidden] { display: none }, since author rules always win over the
+   user-agent stylesheet regardless of selector specificity. */
+.member-split[hidden] { display: none; }
 
 /* Living background video: desktop only, faded in once JS confirms it is
    actually playing (see js/main.js). Sits behind both sides; revealed only
@@ -1652,6 +1667,7 @@ img, svg { max-width: 100%; }
 .auth-form { display: flex; flex-direction: column; gap: 0.9rem; align-items: stretch; }
 .auth-form .btn { margin-top: 0.2rem; }
 .auth-form .form-note { color: var(--side-text); }
+.auth-form .form-note.error { color: var(--classroom-text); }
 .hidden { display: none; }
 .switch-link {
   margin-top: 1.1rem;
