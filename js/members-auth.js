@@ -71,18 +71,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   var client = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-  /* Both emails Supabase sends carry a link back to this site, and the link
-     has to be built from wherever the site is actually being served. Deriving
-     it from the current URL means the same code works on the live domain, on
-     a Netlify preview, and on a local server, with no address hard-coded.
-     Every host used here must also be listed under Authentication ->
-     URL Configuration -> Redirect URLs in Supabase, or the link is refused.
+  /* The password-reset email Supabase sends carries a link back to this
+     site, and the link has to be built from wherever the site is actually
+     being served. Deriving it from the current URL means the same code
+     works on the live domain, on a Netlify preview, and on a local server,
+     with no address hard-coded. Every host used here must also be listed
+     under Authentication -> URL Configuration -> Redirect URLs in Supabase,
+     or the link is refused.
 
      A page opened straight from disk (double-clicked, or a file:// address)
      has no real origin: Chrome and Firefox both report it as the literal
      string "null", which would otherwise get baked into the emailed link and
-     send the confirmation button nowhere. In that case, and on any other
-     origin that is not http(s), return nothing rather than something broken.
+     send the reset button nowhere. In that case, and on any other origin
+     that is not http(s), return nothing rather than something broken.
      Supabase then falls back to whatever Site URL is configured in its own
      dashboard, which is where a real link should be pointing from anyway. */
   function siteUrl(page) {
@@ -225,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function () {
               full_name: nameInput ? nameInput.value : "",
               role: role,
             },
-            emailRedirectTo: siteUrl("welcome.html"),
           },
         });
       } else {
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
           }
           if (isSignup && !result.data.session) {
-            setNote(note, "Account created. We have sent a welcome email to " + email + " from contact@edcircles.net. Open it to confirm your address, then you are in.");
+            setNote(note, "Account created. Sign in with " + email + " and the password you just chose.");
             form.reset();
             return;
           }

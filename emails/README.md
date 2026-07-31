@@ -2,31 +2,78 @@
 
 Every automatic email EdCircles sends goes out from **contact@edcircles.net**.
 
-Two files here are the templates:
+Email confirmation is turned off in Supabase Auth settings: accounts are
+active the moment someone signs up, no click-to-confirm step. That means
+Supabase's own Confirm-signup template never fires (there is nothing left to
+confirm), so `confirm-signup.html` is no longer pasted into Supabase and no
+longer sends. It stays in the repo for reference in case confirmation is ever
+turned back on.
 
-| File | Supabase template | When it sends |
+Three files here are templates:
+
+| File | Sent by | When it sends |
 | --- | --- | --- |
-| `confirm-signup.html` | Confirm signup | The moment somebody creates an account. This is the welcome email. |
-| `reset-password.html` | Reset password | When somebody uses "Forgot password?" on the members page. |
+| `welcome-login.html` | The `send-welcome-email` Edge Function (see below) | The moment somebody creates an account. This is the current welcome email. |
+| `reset-password.html` | Supabase, template "Reset password" | When somebody uses "Forgot password?" on the members page. |
+| `confirm-signup.html` | Nobody, currently | Unused while confirmation is off. Kept for reference. |
 
 They are written for email clients rather than browsers: table layout, styles
 inline, no stylesheet, no web fonts, no images to download. That is deliberate.
 Outlook and Gmail strip most of what a normal web page relies on, and an email
 with no images still looks right in a client that blocks them.
 
+## The welcome email is not a Supabase template
+
+`welcome-login.html` is different from the other two files here: it is not
+pasted into the Supabase dashboard. Supabase only ever emails on its own as
+part of the confirmation flow, and that flow is off, so nothing built into
+Supabase Auth can send a "you're in" email any more.
+
+Instead, `supabase/functions/send-welcome-email/index.ts` sends it directly
+over the same SMTP setup as everything else here, triggered by a Database
+Webhook the moment a new row lands in `auth.users`. That function keeps its
+own copy of this template's HTML (Edge Functions cannot read the rest of the
+repo at runtime), with `{{FULL_NAME_GREETING}}`, `{{DASHBOARD_HEADLINE}}`,
+`{{DASHBOARD_BODY}}`, and `{{EMAIL}}` filled in by plain string substitution
+rather than Supabase's Go templating. **If you edit the wording in
+`welcome-login.html`, copy the change into the function's `TEMPLATE` constant
+too**, since nothing keeps the two in sync automatically.
+
+### Deploying the function
+
+Needs the Supabase CLI, logged in and linked to the EdCircles project.
+
+1. `supabase functions deploy send-welcome-email`
+2. Set the secrets it reads from `Deno.env`:
+   ```
+   supabase secrets set SMTP_USER=contact@edcircles.net
+   supabase secrets set SMTP_PASS=<the same Google Workspace App Password from the SMTP setup below>
+   supabase secrets set WEBHOOK_SECRET=<a long random string you generate once>
+   ```
+3. Dashboard, **Database**, **Webhooks**, create a new one:
+   - Table: `auth.users` (turn on "Show auth schema" if it is not listed)
+   - Events: `Insert`
+   - Type: HTTP Request, POST, to the function's URL (shown after step 1)
+   - Add an HTTP header `X-Webhook-Secret` set to the same string as
+     `WEBHOOK_SECRET` above. The function rejects any request missing this
+     header or carrying the wrong value, since its URL is otherwise a public
+     endpoint.
+
+The function is what actually sends `welcome-login.html`'s content; nothing
+needs pasting into Authentication -> Emails for it.
+
 ## What the site already does
 
 `js/members-auth.js` sends the two pieces of information the welcome email
-needs, and tells Supabase where each link should land:
+needs:
 
-- `full_name` and `role` go into the sign-up call, and reach the template as
-  `{{ .Data.full_name }}` and `{{ .Data.role }}`. That is how the email greets
+- `full_name` and `role` go into the sign-up call. Supabase stores them on
+  `raw_user_meta_data`, which is where the Database Webhook payload and the
+  Edge Function above read them from, and how the welcome email greets
   people by name and shows a teacher something different from a student.
-- `emailRedirectTo` points the confirm link at `welcome.html`.
-- `redirectTo` points the reset link at `reset-password.html`.
-
-Both URLs are worked out from whatever address the site is being served on, so
-nothing is hard-coded and previews work the same as the live domain.
+- `redirectTo` points the password reset link at `reset-password.html`,
+  worked out from whatever address the site is being served on, so nothing
+  is hard-coded and previews work the same as the live domain.
 
 ## Setting it up in Supabase
 
@@ -67,15 +114,15 @@ Whichever route you pick, add SPF and DKIM records for edcircles.net in your
 DNS. Without them a good share of welcome emails land in spam, and a welcome
 email in the spam folder is the same as no welcome email.
 
-### 2. Paste the templates
+### 2. Paste the reset-password template, deploy the welcome function
 
-Dashboard, **Authentication**, **Emails**. For each template, open the tab,
-switch to the source view, and paste the file's contents in whole.
+Dashboard, **Authentication**, **Emails**, **Reset password**. Open the tab,
+switch to the source view, and paste in `reset-password.html`. Subject line:
+`Reset your EdCircles password`.
 
-Subject lines to set alongside them:
-
-- Confirm signup: `Welcome to EdCircles. Confirm your email.`
-- Reset password: `Reset your EdCircles password`
+The welcome email does not get pasted anywhere in this screen. Follow "The
+welcome email is not a Supabase template" above to deploy the Edge Function
+and wire its Database Webhook instead.
 
 ### 3. Allow the redirect URLs
 
@@ -92,18 +139,25 @@ ever misbehaves, check here first.
 ## Checking it works
 
 Create an account on the live site with a real address, using a name and the
-teacher role. You should get the welcome email from contact@edcircles.net,
-greeting you by first name, with the teacher paragraph in the third block.
-Clicking through lands on `welcome.html`, which greets you again and points at
-the teacher dashboard.
+teacher role. Signing up should log you in immediately, with no confirm-your-
+email step, and land you on `dashboard-teacher.html`. Separately, the welcome
+email should arrive from contact@edcircles.net, greeting you by first name,
+with the teacher paragraph in the third block, and a "Go to log in" button
+that lands on `members.html#signin`.
 
-Then do the same with the student role and confirm the third block changes.
+Then do the same with the student role: you should land on the members page's
+signed-in view instead, and the email's third block should read differently.
 
 ## Editing the copy later
 
-Edit the file here, paste it into Supabase again. Keeping the files in the repo
-means the wording is version-controlled and reviewable, rather than living only
-in a dashboard textarea where a change leaves no trace.
+For `reset-password.html`: edit the file here, paste it into Supabase again.
+Keeping the files in the repo means the wording is version-controlled and
+reviewable, rather than living only in a dashboard textarea where a change
+leaves no trace.
+
+For `welcome-login.html`: edit the file here, then copy the same change into
+`supabase/functions/send-welcome-email/index.ts`'s `TEMPLATE` constant, then
+redeploy the function (`supabase functions deploy send-welcome-email`).
 
 ## A note on what these emails are not
 

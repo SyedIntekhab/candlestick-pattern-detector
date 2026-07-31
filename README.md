@@ -45,7 +45,7 @@ about.html                  vision, mission, what we do, testimonials (placehold
 faq.html                    accordion FAQ (extend by copying a .faq-item block)
 contact.html                contact form (placeholder backend) and details
 members.html                student/teacher sign in and sign up, backed by Supabase Auth
-welcome.html                where the welcome email's confirm link lands
+welcome.html                unused since email confirmation was turned off; kept, unlinked
 reset-password.html         where the reset email's link lands, sets the new password
 dashboard-teacher.html      the teacher's own dashboard: sessions, prep, library, workspace
 wellness.html               Wellness Corner, reached from the dashboard
@@ -80,14 +80,16 @@ downloaded once and committed as a plain script, loaded before
   are saved to Supabase's built-in `user_metadata`, no extra database table
   yet. `members.html` shows a real "Welcome back" dashboard with a Sign Out
   button once Supabase confirms a session.
-- **Email confirmation**: with "Confirm email" enabled (the default), a new
-  sign-up has no session until the emailed link is opened, so the page asks
-  the visitor to check their inbox rather than signing them in on the spot.
-  That email is the welcome email, and it lands on `welcome.html`.
-- **Automatic emails**: both emails EdCircles sends, the welcome and the
-  password reset, live in `emails/`. `emails/README.md` covers pasting them
-  into Supabase and pointing SMTP at contact@edcircles.net, which is the step
-  that stops them going out from a Supabase address with a low rate limit.
+- **Email confirmation is off**: signing up returns an active session
+  immediately, no click-to-confirm step. There's no `welcome.html` link to
+  chase; the page signs the new member in on the spot.
+- **Automatic emails**: the welcome email (`emails/welcome-login.html`) is
+  sent by a Supabase Edge Function on signup, not by Supabase's own
+  templates, since those only fire as part of the confirmation flow that's
+  now off. The password reset email is a real Supabase template, same as
+  before. `emails/README.md` covers deploying the function and pointing SMTP
+  at contact@edcircles.net, which is the step that stops emails going out
+  from a Supabase address with a low rate limit.
 - **Where teachers land**: signing in as a teacher goes to
   `dashboard-teacher.html`, which guards itself behind a real session and
   sends students back. Students stay on `members.html` until their own
@@ -107,11 +109,12 @@ downloaded once and committed as a plain script, loaded before
 ## Still needed before launch
 
 1. **Custom SMTP in Supabase**, so emails send from contact@edcircles.net rather than a Supabase address (see `emails/README.md`). Without it the site works, but only a few emails an hour get through.
-2. Confirmed session length (marked `PLACEHOLDER`)
-3. The Calendly inline embed code (marked `CALENDLY EMBED GOES HERE`)
-4. A mailing list or form service for the email capture forms (they currently confirm but store nothing)
-5. Decision on whether to show a price on the Career Counselling page
-6. Real files behind The Library's member shelf. The lock in `js/library-access.js` hides the cards, it does not protect files: anything genuinely private has to be served from storage that checks the member's token.
-7. The teacher dashboard's sessions, prep notes, and class activity are sample content until real bookings exist to read from
-8. A student dashboard, matching the teacher one
-9. Decide whether members need more than name/email/role at sign-up (a proper `profiles` table with Row Level Security, if so)
+2. **Deploy the `send-welcome-email` Edge Function and its Database Webhook** (see `emails/README.md`). Without it, signup works but no welcome email goes out at all, since Supabase's own signup email no longer fires now that confirmation is off.
+3. Confirmed session length (marked `PLACEHOLDER`)
+4. The Calendly inline embed code (marked `CALENDLY EMBED GOES HERE`)
+5. A mailing list or form service for the email capture forms (they currently confirm but store nothing)
+6. Decision on whether to show a price on the Career Counselling page
+7. Real files behind The Library's member shelf. The lock in `js/library-access.js` hides the cards, it does not protect files: anything genuinely private has to be served from storage that checks the member's token.
+8. The teacher dashboard's sessions, prep notes, and class activity are sample content until real bookings exist to read from
+9. A student dashboard, matching the teacher one
+10. Decide whether members need more than name/email/role at sign-up (a proper `profiles` table with Row Level Security, if so)
