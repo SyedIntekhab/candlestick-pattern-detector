@@ -35,9 +35,9 @@ The site is fully static with relative links, so it works on any host with no co
 ## Structure
 
 ```
-index.html                  homepage: banner carousel, hero with pie, CPD event band, circle cards
+index.html                  homepage: banner carousel, hero with pie, CPD catalogue band, circle cards
 book-demo.html              short demo request form (name, email, phone, which circle)
-cpd.html                    the CPD event: registration form and post-session feedback form
+cpd.html                    the CPD Catalogue 2026-27: card deck, the eight programmes, register interest, feedback
 admin.html                  private: demo requests, CPD registrations, feedback charts and notes
 staffroom.html              Teacher Training service grid
 classroom.html              Student Support service grid
@@ -70,6 +70,7 @@ emails/                     the automatic emails, plus their setup guide
 supabase/migrations/        SQL for the form tables and their access rules
 supabase/functions/         the welcome-email Edge Function
 assets/banners/             the three homepage carousel images
+assets/cpd/                 the CPD catalogue cards, sliced from the source artwork
 assets/favicon.svg          pie favicon
 ```
 
@@ -160,16 +161,14 @@ publishable key is the only one that belongs client-side.
 ## Still needed before launch
 
 1. **Run `supabase/migrations/001_forms.sql` and create the admin user** (see "Forms that actually store things" above). Until then the demo, registration, and feedback forms all fail on submit, because the tables they write to do not exist.
-2. **The CPD event's real date, time, and format.** Marked `[PLACEHOLDER]` in two places that must agree: the band on `index.html` and the facts list on `cpd.html`.
-3. **The CPD promo images**, to sit in the marked slot in the event band on `index.html`.
-4. **Real numbers for the proof band on `index.html`.** The figures and the testimonial there came from the design mockup, not from records. They are public claims about the business, so replace or delete them before launch.
-5. **Custom SMTP in Supabase**, so emails send from contact@edcircles.net rather than a Supabase address (see `emails/README.md`). Without it the site works, but only a few emails an hour get through.
-6. **Deploy the `send-welcome-email` Edge Function and its Database Webhook** (see `emails/README.md`). Without it, signup works but no welcome email goes out at all, since Supabase's own signup email no longer fires now that confirmation is off.
-7. Confirmed session length (marked `PLACEHOLDER`)
-8. The Calendly inline embed code (marked `CALENDLY EMBED GOES HERE`)
-9. A mailing list or form service for the email capture forms on the individual service pages (those still confirm but store nothing; the demo, CPD registration, and CPD feedback forms are wired up properly)
-10. Decision on whether to show a price on the Career Counselling page
-11. Real files behind The Library's member shelf. The lock in `js/library-access.js` hides the cards, it does not protect files: anything genuinely private has to be served from storage that checks the member's token.
-12. The teacher dashboard's sessions, prep notes, and class activity are sample content until real bookings exist to read from
-13. A student dashboard, matching the teacher one
-14. Decide whether members need more than name/email/role at sign-up (a proper `profiles` table with Row Level Security, if so)
+2. **Real numbers for the proof band on `index.html`.** The figures and the testimonial there came from the design mockup, not from records. They are public claims about the business, so replace or delete them before launch.
+3. **Custom SMTP in Supabase**, so emails send from contact@edcircles.net rather than a Supabase address (see `emails/README.md`). Without it the site works, but only a few emails an hour get through.
+4. **Deploy the `send-welcome-email` Edge Function and its Database Webhook** (see `emails/README.md`). Without it, signup works but no welcome email goes out at all, since Supabase's own signup email no longer fires now that confirmation is off.
+5. Confirmed session length (marked `PLACEHOLDER`)
+6. The Calendly inline embed code (marked `CALENDLY EMBED GOES HERE`)
+7. A mailing list or form service for the email capture forms on the individual service pages (those still confirm but store nothing; the demo, CPD registration, and CPD feedback forms are wired up properly)
+8. Decision on whether to show a price on the Career Counselling page
+9. Real files behind The Library's member shelf. The lock in `js/library-access.js` hides the cards, it does not protect files: anything genuinely private has to be served from storage that checks the member's token.
+10. The teacher dashboard's sessions, prep notes, and class activity are sample content until real bookings exist to read from
+11. A student dashboard, matching the teacher one
+12. Decide whether members need more than name/email/role at sign-up (a proper `profiles` table with Row Level Security, if so)

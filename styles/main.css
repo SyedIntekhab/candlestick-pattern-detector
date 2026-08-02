@@ -3257,3 +3257,114 @@ img, svg { max-width: 100%; }
   .event-aside { display: none; }
   .event-body h2 { font-size: 1.6rem; }
 }
+
+/* ==========================================================================
+   CPD catalogue page (cpd.html)
+   ========================================================================== */
+
+.hero-cta-row { margin-top: 2rem; }
+
+/* The catalogue cards are portrait social-media artwork of slightly
+   differing widths, so the deck sizes by height and centres each card
+   rather than stretching them to a common box, which would distort them. */
+.cpd-deck-section { padding-top: 2.6rem; }
+.cpd-deck .carousel-viewport {
+  background: var(--parchment);
+  box-shadow: none;
+  border: 1px solid var(--line);
+}
+.cpd-deck .carousel-slide {
+  display: grid;
+  place-items: center;
+  padding: 1.8rem 1rem;
+}
+.cpd-deck .carousel-slide img {
+  width: auto;
+  height: 470px;
+  max-width: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+}
+.cpd-deck .carousel-arrow { opacity: 1; }
+
+/* --- Programme cards --- */
+.prog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.1rem;
+}
+.prog-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem 1.6rem 1.6rem;
+}
+.prog-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+.prog-num {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--library-display);
+  line-height: 1;
+}
+.prog-who {
+  padding: 0.22rem 0.7rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.who-library { background: var(--library-tint); color: var(--library-text); }
+.who-classroom { background: var(--classroom-tint); color: var(--classroom-text); }
+.who-staffroom { background: var(--staffroom-tint); color: var(--staffroom-text); }
+.prog-card h3 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+.prog-card p { margin: 0; color: var(--ink-soft); font-size: 0.94rem; flex: 1; }
+.prog-engine {
+  align-self: flex-start;
+  margin-top: 0.9rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  border: 1px dashed var(--line);
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+}
+
+/* Named apart from cpd-catalogue.html's .format-note, which is a centred
+   single paragraph. Reusing that name here inherited its max-width and
+   centring and squashed this three-column row into the middle of the page. */
+.cpd-formats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.6rem;
+  margin-top: 2.4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.cpd-formats h3 { margin: 0 0 0.35rem; font-size: 1rem; }
+.cpd-formats p { margin: 0; color: var(--ink-soft); font-size: 0.93rem; }
+.cpd-formats a { color: var(--library-text); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .cpd-deck .carousel-slide { padding: 1.1rem 0.6rem; }
+  .cpd-deck .carousel-slide img { height: auto; width: 100%; max-width: 320px; }
+}
+
+/* On a tinted page hero the pale role tints wash out against the background,
+   so the badges sit on white there instead and keep their coloured glyph. */
+.page-hero .trust-icon { background: #fff; box-shadow: var(--shadow-sm); }
+.page-hero .trust-library { color: var(--library-text); }
+.page-hero .trust-classroom { color: var(--classroom-text); }
+.page-hero .trust-staffroom { color: var(--staffroom-text); }
