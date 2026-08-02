@@ -3002,3 +3002,258 @@ img, svg { max-width: 100%; }
   .scale-row { gap: 0.35rem; }
   .scale-opt span { height: 42px; }
 }
+
+/* ==========================================================================
+   Admin view (admin.html)
+   ========================================================================== */
+
+/* The admin area is a workspace, not a page anyone browses to, so the
+   marketing chrome is pared back. */
+.admin-page .nav-cta, .admin-page .nav-login { display: none; }
+.admin-login { max-width: 460px; margin: 2rem auto; }
+.admin-login h1 { font-size: 1.7rem; margin: 0.3rem 0 0.45rem; }
+
+.admin-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+}
+.admin-head h1 { margin: 0.3rem 0 0; font-size: 1.9rem; }
+.admin-head-actions { display: flex; gap: 0.6rem; }
+.admin-head-actions .btn { padding: 0.5rem 1.1rem; font-size: 0.9rem; }
+
+.admin-tabs {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.8rem;
+}
+.admin-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: -1px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.admin-tab:hover { color: var(--ink); }
+.admin-tab.active { color: var(--ink); border-bottom-color: var(--library-fill); }
+.tab-count {
+  min-width: 22px;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--parchment);
+  font-size: 0.78rem;
+  text-align: center;
+}
+.admin-tab.active .tab-count { background: var(--library-tint); color: var(--library-text); }
+
+.admin-error {
+  padding: 0.9rem 1.1rem;
+  border-radius: 12px;
+  background: var(--classroom-tint);
+  color: var(--classroom-text);
+  font-size: 0.92rem;
+  margin-bottom: 1.4rem;
+}
+.admin-empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--ink-faint);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+/* --- Rating charts --- */
+/* 380px rather than something narrower so the four questions land as a tidy
+   2 by 2 in a desktop container, instead of three across with one orphan
+   underneath. */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 1.1rem;
+}
+.chart-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.3rem 1.4rem 1.1rem;
+}
+.chart-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.chart-head h3 { margin: 0; font-size: 0.98rem; }
+.chart-avg { white-space: nowrap; color: var(--ink-faint); font-size: 0.85rem; }
+.chart-avg strong { font-size: 1.35rem; color: var(--library-text); }
+
+.bars { display: flex; flex-direction: column; gap: 0.4rem; }
+.bar-row { display: grid; grid-template-columns: 14px 1fr 22px; align-items: center; gap: 0.6rem; }
+.bar-key, .bar-count { font-size: 0.8rem; color: var(--ink-faint); }
+.bar-count { text-align: right; }
+.bar-track { height: 12px; background: var(--parchment); border-radius: var(--radius-pill); overflow: hidden; }
+.bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  /* Zero-count bars would otherwise vanish entirely and the row would read
+     as missing rather than as none. */
+  min-width: 3px;
+  transition: width 0.4s ease;
+}
+/* Red at 1 through to teal at 5, so a glance at the colour reads the mood. */
+.bar-fill.r1 { background: #FF6B6B; }
+.bar-fill.r2 { background: #FF9F68; }
+.bar-fill.r3 { background: #FFD166; }
+.bar-fill.r4 { background: #8FD9B6; }
+.bar-fill.r5 { background: #4ECDC4; }
+.chart-foot { margin: 0.9rem 0 0; font-size: 0.8rem; color: var(--ink-faint); }
+
+/* --- Sticky note walls --- */
+.notes-head { margin: 2.6rem 0 1.2rem; }
+.notes-head h2 { margin: 0 0 0.3rem; font-size: 1.4rem; }
+.notes-head p { margin: 0; color: var(--ink-soft); font-size: 0.93rem; }
+
+.notes-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+.notes-col h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.9rem;
+  font-size: 1rem;
+}
+.notes-pip { width: 12px; height: 12px; border-radius: 3px; }
+.pip-www { background: #8FD9B6; }
+.pip-ebi { background: var(--staffroom-fill); }
+.notes-wall { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+.sticky {
+  flex: 1 1 210px;
+  max-width: 100%;
+  padding: 1rem 1.05rem 0.75rem;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(41, 47, 54, 0.13);
+  transform: rotate(var(--tilt, 0deg));
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.sticky p { margin: 0 0 0.6rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.sticky-date { font-size: 0.74rem; opacity: 0.62; }
+.sticky-www { background: #D9F2E4; }
+.sticky-ebi { background: #FFF3C4; }
+.notes-none { color: var(--ink-faint); font-size: 0.9rem; }
+
+/* --- Tables --- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.admin-table th, .admin-table td {
+  text-align: left;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.admin-table th {
+  font-size: 0.76rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: var(--paper);
+}
+.admin-table tr:last-child td { border-bottom: 0; }
+.admin-table a { color: var(--library-text); text-decoration: none; }
+.admin-table a:hover { text-decoration: underline; }
+.col-when { color: var(--ink-faint); }
+.pill {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.pill-staffroom { background: var(--staffroom-tint); color: var(--staffroom-text); }
+.pill-classroom { background: var(--classroom-tint); color: var(--classroom-text); }
+.pill-library { background: var(--library-tint); color: var(--library-text); }
+
+@media (max-width: 760px) {
+  .notes-columns { grid-template-columns: 1fr; gap: 1.8rem; }
+}
+
+/* ==========================================================================
+   Upcoming CPD event band (homepage)
+   Deliberately the loudest thing under the hero: dark ground, gold flag, and
+   the only place on the page using the ink background above the fold.
+   ========================================================================== */
+
+.cpd-event { padding: 3rem 0 0; }
+.event-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 22px;
+  padding: 2.4rem 2.6rem;
+  overflow: hidden;
+  position: relative;
+}
+.event-body h2 { margin: 0.7rem 0 0.6rem; color: var(--paper); font-size: 1.95rem; }
+.event-body p { margin: 0; color: rgba(247, 255, 247, 0.76); max-width: 56ch; }
+
+.event-flag {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background: var(--staffroom-fill);
+  color: #5A4700;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.event-card .cpd-facts { margin-top: 1.5rem; gap: 2rem; }
+.event-card .cpd-fact-label { color: var(--library-fill); }
+.event-card .cpd-fact-value { color: var(--paper); }
+
+.event-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.8rem; }
+/* Both button styles are built for a light page and fail on this dark
+   ground: the primary's ink fill disappears into the card, leaving what
+   looks like bare text, and the ghost's ink border goes with it. Invert
+   both, the same move .cta-band makes. */
+.event-actions .btn-primary { background: var(--library-fill); color: #08403C; }
+.event-actions .btn-primary:hover { background: #6FDAD2; }
+.event-actions .btn-ghost {
+  border-color: rgba(247, 255, 247, 0.4);
+  color: var(--paper);
+}
+.event-actions .btn-ghost:hover { background: rgba(247, 255, 247, 0.1); border-color: var(--paper); }
+
+.event-glyph {
+  width: 148px; height: 148px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(78, 205, 196, 0.14);
+  color: var(--library-fill);
+}
+.event-glyph svg { width: 74px; height: 74px; }
+
+@media (max-width: 860px) {
+  .event-card { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+  .event-aside { display: none; }
+  .event-body h2 { font-size: 1.6rem; }
+}

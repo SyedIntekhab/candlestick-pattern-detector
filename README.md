@@ -35,7 +35,10 @@ The site is fully static with relative links, so it works on any host with no co
 ## Structure
 
 ```
-index.html                  homepage: hero with pie, circle cards, featured service, footer
+index.html                  homepage: banner carousel, hero with pie, CPD event band, circle cards
+book-demo.html              short demo request form (name, email, phone, which circle)
+cpd.html                    the CPD event: registration form and post-session feedback form
+admin.html                  private: demo requests, CPD registrations, feedback charts and notes
 staffroom.html              Teacher Training service grid
 classroom.html              Student Support service grid
 library.html                Whole-School Training service grid
@@ -59,8 +62,14 @@ js/reset-password.js        saves the new password against the recovery session
 js/dashboard-teacher.js     live clock, workspace, session guard for the teacher dashboard
 js/wellness.js              check-ins, resets, journal, ambient sound
 js/library-access.js        unlocks the member shelf in The Library once signed in
+js/carousel.js              the homepage banner carousel (auto-rotate, swipe, dots)
+js/public-forms.js          demo, CPD registration, and CPD feedback submissions
+js/admin.js                 admin sign-in, charts, sticky notes, tables
 js/vendor/supabase.js       vendored Supabase JS client (no CDN dependency)
 emails/                     the automatic emails, plus their setup guide
+supabase/migrations/        SQL for the form tables and their access rules
+supabase/functions/         the welcome-email Edge Function
+assets/banners/             the three homepage carousel images
 assets/favicon.svg          pie favicon
 ```
 
@@ -100,6 +109,48 @@ downloaded once and committed as a plain script, loaded before
   works normally once the site is actually deployed (Netlify, etc.) with real
   internet access.
 
+## Forms that actually store things (Supabase)
+
+Three forms write real rows: the demo request on `book-demo.html`, and the
+registration and feedback forms on `cpd.html`. `admin.html` reads all three
+back. Setting this up is two steps, both in the Supabase dashboard.
+
+### 1. Create the tables
+
+SQL Editor, New query, paste all of `supabase/migrations/001_forms.sql`, Run.
+Safe to re-run. It creates `demo_requests`, `cpd_registrations`, and
+`cpd_feedback`, and turns on the access rules described below.
+
+### 2. Create the admin account
+
+Authentication, Users, Add user. Use `admin@edcircles.net`, set a strong
+password, and tick "Auto confirm user". Then open the new user, edit its
+**User Metadata**, and add:
+
+```json
+{ "role": "admin" }
+```
+
+That `role` is the whole of the permission system. `admin.html` will not show
+anything to an account without it, and more importantly neither will the
+database.
+
+### Why the lock is real this time
+
+The publishable key in `js/supabase-config.js` is public by design, so anyone
+can read it out of the page source and query this project directly. A page
+that merely hides a panel behind a JavaScript password check would be a
+curtain, not a lock: the data would still be one fetch away.
+
+Instead, Row Level Security in Postgres allows anonymous visitors to INSERT
+into these three tables and to do nothing else. Reading requires a signed-in
+user whose JWT carries `role: admin`. That check runs in the database, not in
+the browser, so editing `js/admin.js` in devtools gains an attacker nothing.
+
+The practical consequence: never move the admin check into client-side code,
+and never paste the project's **secret** key into any file here. The
+publishable key is the only one that belongs client-side.
+
 ## Editing guide
 
 - **Colors and fonts**: everything is defined as CSS custom properties at the top of `styles/main.css`. Change a token there and the whole site follows.
@@ -108,13 +159,17 @@ downloaded once and committed as a plain script, loaded before
 
 ## Still needed before launch
 
-1. **Custom SMTP in Supabase**, so emails send from contact@edcircles.net rather than a Supabase address (see `emails/README.md`). Without it the site works, but only a few emails an hour get through.
-2. **Deploy the `send-welcome-email` Edge Function and its Database Webhook** (see `emails/README.md`). Without it, signup works but no welcome email goes out at all, since Supabase's own signup email no longer fires now that confirmation is off.
-3. Confirmed session length (marked `PLACEHOLDER`)
-4. The Calendly inline embed code (marked `CALENDLY EMBED GOES HERE`)
-5. A mailing list or form service for the email capture forms (they currently confirm but store nothing)
-6. Decision on whether to show a price on the Career Counselling page
-7. Real files behind The Library's member shelf. The lock in `js/library-access.js` hides the cards, it does not protect files: anything genuinely private has to be served from storage that checks the member's token.
-8. The teacher dashboard's sessions, prep notes, and class activity are sample content until real bookings exist to read from
-9. A student dashboard, matching the teacher one
-10. Decide whether members need more than name/email/role at sign-up (a proper `profiles` table with Row Level Security, if so)
+1. **Run `supabase/migrations/001_forms.sql` and create the admin user** (see "Forms that actually store things" above). Until then the demo, registration, and feedback forms all fail on submit, because the tables they write to do not exist.
+2. **The CPD event's real date, time, and format.** Marked `[PLACEHOLDER]` in two places that must agree: the band on `index.html` and the facts list on `cpd.html`.
+3. **The CPD promo images**, to sit in the marked slot in the event band on `index.html`.
+4. **Real numbers for the proof band on `index.html`.** The figures and the testimonial there came from the design mockup, not from records. They are public claims about the business, so replace or delete them before launch.
+5. **Custom SMTP in Supabase**, so emails send from contact@edcircles.net rather than a Supabase address (see `emails/README.md`). Without it the site works, but only a few emails an hour get through.
+6. **Deploy the `send-welcome-email` Edge Function and its Database Webhook** (see `emails/README.md`). Without it, signup works but no welcome email goes out at all, since Supabase's own signup email no longer fires now that confirmation is off.
+7. Confirmed session length (marked `PLACEHOLDER`)
+8. The Calendly inline embed code (marked `CALENDLY EMBED GOES HERE`)
+9. A mailing list or form service for the email capture forms on the individual service pages (those still confirm but store nothing; the demo, CPD registration, and CPD feedback forms are wired up properly)
+10. Decision on whether to show a price on the Career Counselling page
+11. Real files behind The Library's member shelf. The lock in `js/library-access.js` hides the cards, it does not protect files: anything genuinely private has to be served from storage that checks the member's token.
+12. The teacher dashboard's sessions, prep notes, and class activity are sample content until real bookings exist to read from
+13. A student dashboard, matching the teacher one
+14. Decide whether members need more than name/email/role at sign-up (a proper `profiles` table with Row Level Security, if so)
