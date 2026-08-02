@@ -16,26 +16,76 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav-links" aria-label="Main">
-        <a class="nav-link" href="staffroom.html"><span class="nav-dot dot-staffroom"></span>The Staffroom</a>
-        <a class="nav-link" href="classroom.html"><span class="nav-dot dot-classroom"></span>The Classroom</a>
-        <a class="nav-link" href="library.html"><span class="nav-dot dot-library"></span>The Library</a>
-        <a class="nav-link nav-link-cpd" href="cpd-catalogue.html">CPD for Schools</a>
+        <a class="nav-link active" href="index.html">Home</a>
+        <div class="nav-group">
+          <button class="nav-link nav-group-toggle" type="button" aria-expanded="false">The Circles<svg class="nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-menu">
+            <a href="staffroom.html"><span class="nav-dot dot-staffroom"></span><span><strong>The Staffroom</strong><small>Teacher Training</small></span></a>
+            <a href="classroom.html"><span class="nav-dot dot-classroom"></span><span><strong>The Classroom</strong><small>Student Support</small></span></a>
+            <a href="library.html"><span class="nav-dot dot-library"></span><span><strong>The Library</strong><small>Whole-School Training</small></span></a>
+          </div>
+        </div>
+        <a class="nav-link" href="cpd-catalogue.html">CPD Catalogue</a>
+        <a class="nav-link" href="library.html">For Schools</a>
+        <a class="nav-link" href="library.html#resources">Resources</a>
+        <a class="nav-link" href="about.html">About Us</a>
         <a class="nav-link nav-login" href="members.html#signin">Log in</a>
-        <a class="btn btn-primary nav-cta" href="members.html#signup">Book a session</a>
+        <a class="btn btn-primary nav-cta" href="book-demo.html">Book a Call</a>
       </nav>
     </div>
   </header>
+
+  <section class="banner-carousel">
+    <div class="container">
+      <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Featured from EdCircles">
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <a class="carousel-slide" href="book-demo.html">
+              <img src="assets/banners/banner-demo.jpg" width="1600" height="900" alt="See EdCircles in action. Book a free demo and meet verified consultants who have actually taught, examined, and hired." />
+            </a>
+            <a class="carousel-slide" href="library.html#resources">
+              <img src="assets/banners/banner-library-free.jpg" width="1600" height="900" loading="lazy" alt="Limited time offer. Was 25 dollars, now free: lesson plans, curriculum resources, and CPD materials. Our full resource library unlocked." />
+            </a>
+            <a class="carousel-slide" href="cv-building.html">
+              <img src="assets/banners/banner-cv.jpg" width="1600" height="900" loading="lazy" alt="Your CV is not the problem, the presentation is. Get your CV and LinkedIn rebuilt by consultants who have sat on hiring panels." />
+            </a>
+          </div>
+        </div>
+        <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="carousel-arrow carousel-next" type="button" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="carousel-dots" aria-label="Choose slide"></div>
+      </div>
+    </div>
+  </section>
 
   <section class="hero">
     <div class="container hero-inner">
       <div>
         <span class="hero-badge anim-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Every consultant verified</span>
-        <h1 class="anim-2">Expert support for teachers, students, and schools.</h1>
+        <h1 class="anim-2">Expert support for <em class="tint-staffroom">teachers</em>, <em class="tint-classroom">students</em>, and <em class="tint-library">schools</em>.</h1>
         <p class="hero-sub anim-3">EdCircles connects you with verified education consultants for career guidance, subject coaching, professional development, and whole-school training.</p>
         <div class="hero-actions anim-4">
           <a class="btn btn-primary" href="career-counselling.html">Book Career Counselling</a>
           <a class="btn btn-ghost" href="#circles">Explore the circles</a>
         </div>
+        <ul class="hero-trust anim-4">
+          <li>
+            <span class="trust-icon trust-library" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <span>Verified<br />Consultants</span>
+          </li>
+          <li>
+            <span class="trust-icon trust-classroom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5M14 20c0-2.3 1.6-4 4-4s4 1.7 4 4"/></svg></span>
+            <span>Expertise That<br />Delivers</span>
+          </li>
+          <li>
+            <span class="trust-icon trust-staffroom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+            <span>Trusted by Schools<br />Across UAE</span>
+          </li>
+        </ul>
       </div>
         <figure class="pie-figure anim-4">
           <svg class="pie" viewBox="-115 -115 230 230" role="navigation" aria-label="Pick your circle">
@@ -176,6 +226,40 @@
     </div>
   </section>
 
+  <!-- PLACEHOLDER: every figure and the quote below came from the design
+       mockup, not from EdCircles records. They are public claims about the
+       business, so replace them with real numbers and a real, attributable
+       testimonial before launch, or delete the band. Same standing caveat as
+       the testimonial cards on about.html. -->
+  <section class="proof-band">
+    <div class="container">
+      <div class="proof-inner reveal">
+        <ul class="proof-stats">
+          <li>
+            <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5M14 20c0-2.3 1.6-4 4-4s4 1.7 4 4"/></svg></span>
+            <span class="proof-num">250+</span>
+            <span class="proof-label">Verified Consultants</span>
+          </li>
+          <li>
+            <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9.5L12 4l7 5.5V21"/><path d="M10 21v-5h4v5"/></svg></span>
+            <span class="proof-num">120+</span>
+            <span class="proof-label">Schools Supported</span>
+          </li>
+          <li>
+            <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/></svg></span>
+            <span class="proof-num">5,000+</span>
+            <span class="proof-label">Students Guided</span>
+          </li>
+        </ul>
+        <div class="proof-quote">
+          <div class="proof-stars" aria-label="Five out of five">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"EdCircles has transformed how we access expert support. Practical, reliable, and built for real schools."</blockquote>
+          <cite class="proof-cite">Head of School, Dubai</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section cta-band">
     <div class="container">
       <div class="reveal">
@@ -242,5 +326,6 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/carousel.js"></script>
 </body>
 </html>

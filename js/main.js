@@ -35,6 +35,55 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  /* "The Circles" nav dropdown. Click to open, click anywhere else or press
+     Escape to close. Deliberately not hover-driven: a hover menu is unusable
+     on a touch screen and unreachable from the keyboard. */
+  var navGroups = document.querySelectorAll(".nav-group");
+  navGroups.forEach(function (group) {
+    var toggle = group.querySelector(".nav-group-toggle");
+    if (!toggle) {
+      return;
+    }
+    toggle.addEventListener("click", function (event) {
+      event.stopPropagation();
+      var open = !group.classList.contains("open");
+      navGroups.forEach(function (other) {
+        other.classList.remove("open");
+        var otherToggle = other.querySelector(".nav-group-toggle");
+        if (otherToggle) {
+          otherToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+      group.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+  if (navGroups.length) {
+    document.addEventListener("click", function (event) {
+      navGroups.forEach(function (group) {
+        if (!group.contains(event.target)) {
+          group.classList.remove("open");
+          var toggle = group.querySelector(".nav-group-toggle");
+          if (toggle) {
+            toggle.setAttribute("aria-expanded", "false");
+          }
+        }
+      });
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") {
+        return;
+      }
+      navGroups.forEach(function (group) {
+        group.classList.remove("open");
+        var toggle = group.querySelector(".nav-group-toggle");
+        if (toggle) {
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+  }
+
   /* FAQ accordion: one item open at a time */
   var faqItems = document.querySelectorAll(".faq-item");
   faqItems.forEach(function (item) {

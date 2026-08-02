@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact | EdCircles</title>
-  <meta name="description" content="Talk to EdCircles about sessions, CPD programmes, custom requests, or joining the platform as a consultant." />
+  <title>CPD Programme: Register and Give Feedback: EdCircles</title>
+  <meta name="description" content="Register for the upcoming EdCircles CPD programme, and share your feedback afterwards." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
@@ -35,63 +35,110 @@
     </div>
   </header>
 
-  <section class="page-hero">
+
+  <section class="page-hero cpd-hero">
     <div class="container page-hero-inner">
-      <span class="eyebrow anim-1">Contact</span>
-      <h1 class="anim-2">Talk to us.</h1>
-      <p class="anim-3">Sessions, CPD days, custom requests, or joining as a consultant: describe it plainly and we will reply the same way.</p>
+      <span class="eyebrow anim-1">Upcoming CPD</span>
+      <!-- PLACEHOLDER: event name, date, time, and venue are not final. Replace
+           the four values in the .cpd-facts list below and this heading. -->
+      <h1 class="anim-2">The next EdCircles CPD.</h1>
+      <p class="anim-3">A practical session built for real staffrooms, run by consultants who have taught, examined, and hired. Register below, and once you have attended, the feedback form is on this same page.</p>
+      <ul class="cpd-facts anim-4">
+        <li><span class="cpd-fact-label">Date</span><span class="cpd-fact-value">[PLACEHOLDER]</span></li>
+        <li><span class="cpd-fact-label">Time</span><span class="cpd-fact-value">[PLACEHOLDER]</span></li>
+        <li><span class="cpd-fact-label">Format</span><span class="cpd-fact-value">[PLACEHOLDER]</span></li>
+        <li><span class="cpd-fact-label">Cost</span><span class="cpd-fact-value">Free</span></li>
+      </ul>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container contact-grid">
-      <div class="contact-card reveal">
-        <h2>Send a message</h2>
-        <!-- PLACEHOLDER: this form is not wired to a backend yet. On Netlify, the
-             quickest option is Netlify Forms: add data-netlify="true" and a
-             form name, then remove the JS preventDefault for this form. -->
-        <form class="contact-form">
+  <section class="section" id="register">
+    <div class="container form-page-grid">
+      <div class="form-card reveal">
+        <h2>Register your place</h2>
+        <p class="form-card-sub">This is not a website account and there is no password. We only need enough to reach you about the session.</p>
+
+        <form class="public-form" data-form="cpd-registration" novalidate>
           <div class="field">
-            <label for="c-name">Name</label>
-            <input id="c-name" name="name" type="text" autocomplete="name" required />
+            <label for="r-name">Full name</label>
+            <input id="r-name" name="full_name" type="text" autocomplete="name" required />
           </div>
           <div class="field">
-            <label for="c-email">Email</label>
-            <input id="c-email" name="email" type="email" autocomplete="email" required />
+            <label for="r-email">Email address</label>
+            <input id="r-email" name="email" type="email" autocomplete="email" required />
           </div>
           <div class="field">
-            <label for="c-role">I am a</label>
-            <select id="c-role" name="role">
-              <option>Teacher</option>
-              <option>School</option>
-              <option>Consultant</option>
-              <option>Student</option>
-              <option>Parent</option>
-              <option>Other</option>
-            </select>
+            <label for="r-whatsapp">WhatsApp number</label>
+            <input id="r-whatsapp" name="whatsapp" type="tel" autocomplete="tel" required />
+            <small class="field-hint">Include your country code, for example +971. Joining details are sent here.</small>
           </div>
-          <div class="field">
-            <label for="c-msg">Message</label>
-            <textarea id="c-msg" name="message" required></textarea>
-          </div>
-          <button class="btn btn-primary" type="submit">Send message</button>
-          <p class="form-note" role="status">Thank you. Your message is noted and we will reply by email.</p>
+
+          <button class="btn btn-primary" type="submit">Register for this CPD</button>
+          <p class="form-note" role="status" aria-live="polite"></p>
         </form>
       </div>
-      <aside class="contact-aside">
+
+      <aside class="form-aside">
         <div class="method-card reveal">
-          <h3>Email</h3>
-          <p><a href="mailto:contact@edcircles.net">contact@edcircles.net</a> reaches a real person. It is also the address every automatic EdCircles email is sent from, so replying to one of those works too.</p>
+          <h3>Who it is for</h3>
+          <p>Classroom teachers, middle leaders, and anyone responsible for professional development in a school.</p>
         </div>
         <div class="method-card reveal">
-          <h3>Response time</h3>
-          <p>We are a small team of educators, so we aim to reply within two working days, and usually sooner.</p>
+          <h3>What you will leave with</h3>
+          <p>Something you can use in a lesson the next morning, not a folder that goes on a shelf.</p>
         </div>
         <div class="method-card reveal">
-          <h3>Booking a session instead?</h3>
-          <p>Career Counselling has its own page with everything you need. <a href="career-counselling.html">Go straight there</a>.</p>
+          <h3>Already attended?</h3>
+          <p>The feedback form is <a href="#feedback">further down this page</a>. It takes about a minute and it is anonymous.</p>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="feedback">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>How did we do?</h2>
+        <p>For attendees. Completely anonymous: we do not record your name or email on this form, so please be straight with us.</p>
+      </div>
+
+      <div class="feedback-card reveal">
+        <form class="public-form" data-form="cpd-feedback" novalidate>
+          <fieldset class="field rating-field">
+            <legend>Overall, how would you rate today's CPD?</legend>
+            <div class="scale" data-scale="rating_overall" data-low="Poor" data-high="Excellent"></div>
+          </fieldset>
+
+          <fieldset class="field rating-field">
+            <legend>Was the session relevant to your classroom practice?</legend>
+            <div class="scale" data-scale="rating_relevance" data-low="Not at all" data-high="Very relevant"></div>
+          </fieldset>
+
+          <fieldset class="field rating-field">
+            <legend>Would you recommend this CPD to a colleague?</legend>
+            <div class="scale" data-scale="rating_recommend" data-low="Definitely not" data-high="Definitely"></div>
+          </fieldset>
+
+          <fieldset class="field rating-field">
+            <legend>Was the pace of the session appropriate?</legend>
+            <div class="scale" data-scale="rating_pace" data-low="Too slow or too fast" data-high="Just right"></div>
+          </fieldset>
+
+          <div class="reflection-grid">
+            <div class="field">
+              <label for="f-www">What went well?</label>
+              <textarea id="f-www" name="went_well" rows="5" placeholder="The part that was genuinely useful, and why."></textarea>
+            </div>
+            <div class="field">
+              <label for="f-ebi">Even better if...</label>
+              <textarea id="f-ebi" name="even_better_if" rows="5" placeholder="The one change that would have made it better for you."></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Send my feedback</button>
+          <p class="form-note" role="status" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -151,5 +198,8 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/vendor/supabase.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/public-forms.js"></script>
 </body>
 </html>
