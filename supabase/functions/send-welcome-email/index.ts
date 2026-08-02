@@ -138,13 +138,19 @@ serve(async (req) => {
 
   const expectedSecret = Deno.env.get("WEBHOOK_SECRET");
   if (!expectedSecret) {
+    console.error("REJECTED: WEBHOOK_SECRET secret is not set on this function");
     return new Response("Unauthorized: WEBHOOK_SECRET secret is not set on this function", { status: 401 });
   }
   const providedSecret = req.headers.get("X-Webhook-Secret");
   if (!providedSecret) {
+    console.error("REJECTED: request is missing the X-Webhook-Secret header");
     return new Response("Unauthorized: request is missing the X-Webhook-Secret header", { status: 401 });
   }
   if (providedSecret !== expectedSecret) {
+    console.error(
+      "REJECTED: X-Webhook-Secret header does not match the WEBHOOK_SECRET secret. Header was " +
+        providedSecret.length + " characters, secret was " + expectedSecret.length + " characters.",
+    );
     return new Response("Unauthorized: X-Webhook-Secret header does not match the WEBHOOK_SECRET secret", { status: 401 });
   }
 
